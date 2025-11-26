@@ -18,6 +18,10 @@
       liff.init({
                 liffId: MY_LIFF_ID
       })
+      .then((ret)=> {
+        alert("wey");
+        alert(ret);
+      })
       .catch((err) => {
           alert("initializeLiff catch");
           document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
