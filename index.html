@@ -64,6 +64,8 @@
     <p>ステータス: <span id="status">初期化中...</span></p>
     <p>あなたの表示名: <span id="display-name">情報を取得中...</span></p>
 
+    <div id="text-button" onclick="click_logoff()">LogOff</div>
+
     <script>
         // ★ あなたのLIFF IDに置き換えてください
         const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; 
@@ -114,6 +116,13 @@
             .catch(err => {
                 document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
                 console.error("Error getting profile", err);
+            });
+        }
+        
+        function click_logoff() {
+            liff.logout()
+            .catch(err => {
+                alert("logout failed.");
             });
         }
 
