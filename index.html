@@ -72,6 +72,7 @@
          * LIFF初期化処理
          */
         function initializeLiff() {
+        	alert("initializeLiff")
             liff.init({
                 liffId: MY_LIFF_ID
             })
@@ -90,6 +91,7 @@
          * ログイン状態の確認と処理の分岐
          */
         function checkLoginStatus() {
+            alert("checkLoginStatus")
             if (liff.isLoggedIn()) {
                 document.getElementById('status').textContent = 'ログイン済み';
                 // ログインしていれば、プロフィールを取得
@@ -105,6 +107,7 @@
          * liff.getProfile() API呼び出し
          */
         function getLiffProfile() {
+            alert("getLiffProfile")
             liff.getProfile()
             .then(profile => {
                 // プロフィール情報を画面に表示
@@ -118,6 +121,7 @@
         }
 
         // アプリ起動時にLIFF初期化関数を実行
+        alert("!!!")
         initializeLiff();
     </script>
   </body>
