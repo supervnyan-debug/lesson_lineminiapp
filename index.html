@@ -72,19 +72,24 @@
          * LIFF初期化処理
          */
         function initializeLiff() {
-        	alert("initializeLiff")
+        	alert("initializeLiff begin")
             liff.init({
                 liffId: MY_LIFF_ID
             })
             .then(() => {
+                alert("initializeLiff then")
+                
                 document.getElementById('status').textContent = '初期化成功';
                 // LIFF初期化が成功したら、次のステップへ
                 checkLoginStatus();
             })
             .catch((err) => {
+                alert("initializeLiff catch")
                 document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
                 console.error("LIFF Initialization failed", err);
             });
+            
+            alert("initializeLiff end")
         }
 
         /**
@@ -121,7 +126,6 @@
         }
 
         // アプリ起動時にLIFF初期化関数を実行
-        alert("!!!")
         initializeLiff();
     </script>
   </body>
