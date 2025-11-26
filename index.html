@@ -15,6 +15,10 @@
   <body>
     <script>
       const MY_LIFF_ID = "2008528173-QXK5m3JB"; 
+      if (liff === undefined){
+          alert("liff undefined!");
+          return;
+      }
       liff.init({
                 liffId: MY_LIFF_ID
       })
