@@ -66,37 +66,37 @@
 
     <script>
         // ★ あなたのLIFF IDに置き換えてください
-        const MY_LIFF_ID = "2008528173-Q0Ppe5X71"; 
+        const MY_LIFF_ID = "2008528173-QXK5m3JB"; 
 
         /**
          * LIFF初期化処理
          */
         function initializeLiff() {
-        	alert("initializeLiff begin")
+        	alert("initializeLiff begin");
             liff.init({
                 liffId: MY_LIFF_ID
             })
             .then(() => {
-                alert("initializeLiff then")
+                alert("initializeLiff then");
                 
                 document.getElementById('status').textContent = '初期化成功';
                 // LIFF初期化が成功したら、次のステップへ
                 checkLoginStatus();
             })
             .catch((err) => {
-                alert("initializeLiff catch")
+                alert("initializeLiff catch");
                 document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
                 console.error("LIFF Initialization failed", err);
             });
             
-            alert("initializeLiff end")
+            alert("initializeLiff end");
         }
 
         /**
          * ログイン状態の確認と処理の分岐
          */
         function checkLoginStatus() {
-            alert("checkLoginStatus")
+            alert("checkLoginStatus");
             if (liff.isLoggedIn()) {
                 document.getElementById('status').textContent = 'ログイン済み';
                 // ログインしていれば、プロフィールを取得
@@ -112,7 +112,7 @@
          * liff.getProfile() API呼び出し
          */
         function getLiffProfile() {
-            alert("getLiffProfile")
+            alert("getLiffProfile");
             liff.getProfile()
             .then(profile => {
                 // プロフィール情報を画面に表示
@@ -126,6 +126,7 @@
         }
 
         // アプリ起動時にLIFF初期化関数を実行
+        alert("!!!");
         initializeLiff();
     </script>
   </body>
