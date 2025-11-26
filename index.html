@@ -10,10 +10,10 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.line-scdn.net;">
     <link rel="stylesheet" href="index.css">
     <title>LIFF Starter</title>
-    <script src="https://static.line-scdn.net/liff/sdk/v2/liff.js"></script>
+   
   </head>
   <body>
-  <!--
+
     <div class="home">
       <h1 class="home__title">
         Welcome to <br /><a
@@ -62,76 +62,8 @@
         </a>
       </div>
     </div>
-    -->
+
     
-    <h1>LINE LIFFアプリ デモ</h1>
-    <p>ステータス: <span id="status">初期化中...</span></p>
-    <p>あなたの表示名: <span id="display-name">情報を取得中...</span></p>
 
-    <script>
-        // ★ あなたのLIFF IDに置き換えてください
-        const MY_LIFF_ID = "2008528173-QXK5m3JB"; 
-
-        /**
-         * LIFF初期化処理
-         */
-        function initializeLiff() {
-        	alert("initializeLiff begin");
-            liff.init({
-                liffId: MY_LIFF_ID
-            })
-            .then(() => {
-                alert("initializeLiff then");
-                
-                document.getElementById('status').textContent = '初期化成功';
-                // LIFF初期化が成功したら、次のステップへ
-                checkLoginStatus();
-            })
-            .catch((err) => {
-                alert("initializeLiff catch");
-                document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
-                console.error("LIFF Initialization failed", err);
-            });
-            
-            alert("initializeLiff end");
-        }
-
-        /**
-         * ログイン状態の確認と処理の分岐
-         */
-        function checkLoginStatus() {
-            alert("checkLoginStatus");
-            if (liff.isLoggedIn()) {
-                document.getElementById('status').textContent = 'ログイン済み';
-                // ログインしていれば、プロフィールを取得
-                getLiffProfile();
-            } else {
-                document.getElementById('status').textContent = '未ログイン';
-                // 未ログインであれば、ログイン画面へリダイレクト
-                liff.login();
-            }
-        }
-
-        /**
-         * liff.getProfile() API呼び出し
-         */
-        function getLiffProfile() {
-            alert("getLiffProfile");
-            liff.getProfile()
-            .then(profile => {
-                // プロフィール情報を画面に表示
-                document.getElementById('display-name').textContent = profile.displayName;
-                console.log('Profile fetched:', profile);
-            })
-            .catch(err => {
-                document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
-                console.error("Error getting profile", err);
-            });
-        }
-
-        // アプリ起動時にLIFF初期化関数を実行
-        alert("!!!");
-        initializeLiff();
-    </script>
   </body>
 </html>
