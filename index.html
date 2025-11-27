@@ -100,10 +100,12 @@
         function click_logout() {
             if (!liff.isLoggedIn()) return;
             
-            //liff.logout();
+            liff.logout();
             
-
-            // promiseを使った呼び出しにすると、TypeError
+/*
+            // promiseを使ってlogoutを呼び出しにすると
+            // Uncaught TypeError: can't access property "then", liff.logout() is undefined
+            // が発生する
             liff.logout()
             .then(() => {
                 window.location.reload();
@@ -111,7 +113,7 @@
             .catch((err) => {
                 alert("logout failed.");
             });
-
+*/
             
             update_status();
         }
