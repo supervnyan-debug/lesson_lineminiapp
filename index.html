@@ -100,7 +100,19 @@
         function click_logout() {
             if (!liff.isLoggedIn()) return;
             
-            liff.logout();
+            //liff.logout();
+            
+
+            // promiseを使った呼び出しにすると、TypeError
+            liff.logout()
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((err) => {
+                alert("logout failed.");
+            });
+
+            
             update_status();
         }
 
