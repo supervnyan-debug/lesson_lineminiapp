@@ -132,7 +132,13 @@
         }
         
         function click_logout() {
-            liff.logout()
+            liff.isLoggedIn()
+            .then((resultLoggedIn) => {
+              if (resultLoggedIn)
+              {
+                liff.logout();
+              }
+            })
             .catch(err => {
                 alert("logout failed.");
             });
