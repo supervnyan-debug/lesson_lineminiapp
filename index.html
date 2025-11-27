@@ -80,6 +80,7 @@
     <p>あなたの表示名: <span id="display-name">情報を取得中...</span></p>
 
     <div id="text-button" onclick="getLiffProfile()">DisplayName</div>
+    <div id="text-button" onclick="click_login()">LogIn</div>
     <div id="text-button" onclick="click_logout()">LogOut</div>
 
     <script>
@@ -135,21 +136,20 @@
             });
         }
         
+        function click_login() {
+            if (liff.isLoggedIn()) return;
+
+            liff.login();
+            document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
+            document.getElementById('display-name').textContent = profile.displayName;
+        }
+        
         function click_logout() {
-            if (liff.isLoggedIn())
-            {
-              liff.logout();
-              getLiffProfile()
-              alert("logout!");
-              /*
-              .then(() => {
-                window.location.reload();
-              })
-              .catch((err) => {
-                alert("logout failed.");
-              });
-              */
-            }
+            if (!liff.isLoggedIn()) return;
+            
+            liff.logout();
+            document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
+            document.getElementById('display-name').textContent = profile.displayName;
         }
 
         // アプリ起動時にLIFF初期化関数を実行
