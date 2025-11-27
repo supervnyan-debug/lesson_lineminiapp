@@ -138,13 +138,15 @@
         function click_logout() {
             if (liff.isLoggedIn())
             {
-              liff.logout()
+              liff.logout();
+              /*
               .then(() => {
                 window.location.reload();
               })
               .catch((err) => {
                 alert("logout failed.");
               });
+              */
             }
         }
 
