@@ -134,10 +134,10 @@
         function click_logout() {
             if (liff.isLoggedIn())
             {
-              ()
-              . then(() => {
-                liff.logout();
-              })
+              liff.logout()
+              .then(() => {
+                window.location.reload();
+              })              
               .catch(err => {
                 alert("logout failed.");
               });
