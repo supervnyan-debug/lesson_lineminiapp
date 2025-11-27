@@ -6,7 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="index.css" />
     <title>LIFF Starter</title>
+    <!--
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    -->
+    <script src="https://static.line-scdn.net/liff/sdk/v2/liff.js"></script>
   </head>
   <body>
     <style>
@@ -125,7 +128,7 @@
                 document.getElementById('display-name').textContent = profile.displayName;
                 console.log('Profile fetched:', profile);
             })
-            .catch(err => {
+            .catch((err) => {
                 document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
                 console.error("Error getting profile", err);
             });
@@ -137,8 +140,8 @@
               liff.logout()
               .then(() => {
                 window.location.reload();
-              })              
-              .catch(err => {
+              })
+              .catch((err) => {
                 alert("logout failed.");
               });
             }
