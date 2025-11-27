@@ -112,7 +112,7 @@
             if (liff.isLoggedIn()) {
                 document.getElementById('status').textContent = 'ログイン済み';
                 // ログインしていれば、プロフィールを取得
-                //getLiffProfile();
+                getLiffProfile();
             } else {
                 document.getElementById('status').textContent = '未ログイン';
                 // 未ログインであれば、ログイン画面へリダイレクト
@@ -136,20 +136,23 @@
             });
         }
         
+        function update_status() {
+            document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
+            getLiffProfile();
+        }
+        
         function click_login() {
             if (liff.isLoggedIn()) return;
 
             liff.login();
-            document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
-            document.getElementById('display-name').textContent = profile.displayName;
+            update_status();
         }
         
         function click_logout() {
             if (!liff.isLoggedIn()) return;
             
             liff.logout();
-            document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
-            document.getElementById('display-name').textContent = profile.displayName;
+            update_status();
         }
 
         // アプリ起動時にLIFF初期化関数を実行
