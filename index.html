@@ -132,16 +132,13 @@
         }
         
         function click_logout() {
-            liff.isLoggedIn()
-            .then((resultLoggedIn) => {
-              if (resultLoggedIn)
-              {
-                liff.logout();
-              }
-            })
-            .catch(err => {
+            if (liff.isLoggedIn())
+            {
+              liff.logout()
+              .catch(err => {
                 alert("logout failed.");
-            });
+              });
+            }
         }
 
         // アプリ起動時にLIFF初期化関数を実行
