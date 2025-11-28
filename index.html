@@ -18,7 +18,7 @@
       <p>ステータス: <span id="status">初期化中...</span><button onclick="click_login()">ログイン</button><button onclick="click_logout()">ログアウト</button></p>
     </div>
     <div>
-      <p>あなたの表示名: <span id="display-name">情報を取得中...</span><button onclick="getLiffProfile()">更新</button></p>
+      <p>あなたの表示名: <span id="display-name">情報を取得中...</span><button onclick="click_LiffProfile()">更新</button></p>
     </div>
     <div>
       <p>OS: <span id="os"></span><button onclick="click_OS()">更新</button></p>
@@ -72,29 +72,11 @@
         function checkLoginStatus() {
             if (liff.isLoggedIn()) {
                 document.getElementById('status').textContent = 'ログイン済み';
-                // ログインしていれば、プロフィールを取得
-                getLiffProfile();
             } else {
                 document.getElementById('status').textContent = '未ログイン';
                 // 未ログインであれば、ログイン画面へリダイレクト
                 liff.login();
             }
-        }
-
-        /**
-         * liff.getProfile() API呼び出し
-         */
-        function getLiffProfile() {
-            liff.getProfile()
-            .then(profile => {
-                // プロフィール情報を画面に表示
-                document.getElementById('display-name').textContent = profile.displayName;
-                console.log('Profile fetched:', profile);
-            })
-            .catch((err) => {
-                document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
-                console.error("Error getting profile", err);
-            });
         }
         
         function update_status() {
@@ -135,6 +117,22 @@
             
             update_status();
         }
+
+        //
+        // LIFF プロフィール (liff.getProfile()
+        //
+        function click_LiffProfile() {
+            liff.getProfile()
+            .then(profile => {
+                // プロフィール情報を画面に表示
+                document.getElementById('display-name').textContent = profile.displayName;
+                console.log('Profile fetched:', profile);
+            })
+            .catch((err) => {
+                document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
+                console.error("Error getting profile", err);
+            });
+        }
         
         //
         // OS(liff.getOS)
@@ -162,7 +160,7 @@
         // LINE のバージョン(liff.getLineVersion)
         //
         function click_LineVersion() {
-          // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
+          // LIFFブラウザでは動くが、外部ブラウザでは空文字列
           document.getElementById('line-version').textContent = liff.getLineVersion();
         }
 
