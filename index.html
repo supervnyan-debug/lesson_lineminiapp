@@ -18,7 +18,7 @@
       <p>ステータス: <span id="status">初期化中...</span><button onclick="click_login()">ログイン</button><button onclick="click_logout()">ログアウト</button></p>
     </div>
     <div>
-      <p>あなたの表示名: <span id="display-name">情報を取得中...</span><button onclick="click_LiffProfile()">更新</button></p>
+      <p>あなたの表示名: <span id="display-name"></span><button onclick="click_LiffProfile()">更新</button></p>
     </div>
     <div>
       <p>OS: <span id="os"></span><button onclick="click_OS()">更新</button></p>
@@ -32,7 +32,15 @@
      <div>
       <p>LINE のバージョン: <span id="line-version"></span><button onclick="click_LineVersion()">更新</button></p>
     </div>
-    
+     <div>
+      <p>LIFFブラウザの確認: <span id="isInClient"></span><button onclick="click_IsInClient()">更新</button></p>
+    </div>
+
+
+
+    //
+    // スクリプト
+    //
     <script>
         // ★ あなたのLIFF IDに置き換えてください
         const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; 
@@ -162,6 +170,13 @@
         function click_LineVersion() {
           // LIFFブラウザでは動くが、外部ブラウザでは空文字列
           document.getElementById('line-version').textContent = liff.getLineVersion();
+        }
+
+        //
+        // LIFFブラウザであるかの確認(liff.isInClient)
+        //
+        function click_IsInClient() {
+          document.getElementById('isInClient').textContent = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
         }
 
         // アプリ起動時にLIFF初期化関数を実行
