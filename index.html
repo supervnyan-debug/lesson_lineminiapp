@@ -23,11 +23,24 @@
     <div>
       <p>OS: <span id="os"></span><button onclick="click_OS()">更新</button></p>
     </div>
-    
+     <div>
+      <p>LINEアプリの言語: <span id="app-language"></span><button onclick="click_AppLang()">更新</button></p>
+    </div>  
     
     <script>
         // ★ あなたのLIFF IDに置き換えてください
         const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; 
+        
+        /*
+          LIFF APIでエラーを返すときは、LiffErrorオブジェクトが返る
+          {
+            code: string エラーコード
+            message: string エラーメッセージ
+            cause: Unknown(含まれないことがある） エラーの原因
+          }
+          
+          https://developers.line.biz/ja/reference/liff/#liff-errors
+        */
 
         /**
          * LIFF初期化処理
@@ -121,7 +134,15 @@
         // OS(liff.getOS)
         //
         function click_OS() {
-          document.getElementById('display-name').textContent = liff.isLoggedIn()? liff.getOS(): "---";
+          document.getElementById('os').textContent = liff.isLoggedIn()? liff.getOS(): "---";
+        }
+
+        //
+        // LINEアプリの言語(liff.getOS)
+        //
+        function click_AppLang() {
+          // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
+          document.getElementById('app-language').textContent = liff.getAppLanguage();
         }
 
         // アプリ起動時にLIFF初期化関数を実行
