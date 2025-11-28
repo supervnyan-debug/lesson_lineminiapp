@@ -28,7 +28,10 @@
     <p>ステータス: <span id="status">初期化中...</span></p>
     <p>あなたの表示名: <span id="display-name">情報を取得中...</span></p>
 
-    <div id="text-button" onclick="getLiffProfile()">DisplayName</div>
+    <div>
+       <p>ステータス: <span id="status">初期化中...</span><button onclick="getLiffProfile()">更新</button></p>
+    </div
+    
     <div id="text-button" onclick="click_login()">LogIn</div>
     <div id="text-button" onclick="click_logout()">LogOut</div>
 
@@ -90,6 +93,9 @@
             getLiffProfile();
         }
         
+        //
+        // ログイン(liff.login)
+        //
         function click_login() {
             if (liff.isLoggedIn()) return;
 
@@ -97,6 +103,9 @@
             update_status();
         }
         
+        //
+        // ログアウト(liff.logout)
+        //
         function click_logout() {
             if (!liff.isLoggedIn()) return;
             
