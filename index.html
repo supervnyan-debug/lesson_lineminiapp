@@ -25,7 +25,13 @@
     </div>
      <div>
       <p>LINEアプリの言語: <span id="app-language"></span><button onclick="click_AppLang()">更新</button></p>
-    </div>  
+    </div>
+     <div>
+      <p>LIFF SDKのバージョン: <span id="sdk-version"></span><button onclick="click_SdkVersion()">更新</button></p>
+    </div>
+     <div>
+      <p>LINE のバージョン: <span id="line-version"></span><button onclick="click_LineVersion()">更新</button></p>
+    </div>
     
     <script>
         // ★ あなたのLIFF IDに置き換えてください
@@ -136,13 +142,28 @@
         function click_OS() {
           document.getElementById('os').textContent = liff.isLoggedIn()? liff.getOS(): "---";
         }
-
+        
         //
         // LINEアプリの言語(liff.getOS)
         //
         function click_AppLang() {
           // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
           document.getElementById('app-language').textContent = liff.getAppLanguage();
+        }
+        
+        //
+        // LIFF SDKのバージョン(liff.getVersion)
+        //
+        function click_SdkVersion() {
+          document.getElementById('sdk-version').textContent = liff.getVersion();
+        }
+        
+        //
+        // LINE のバージョン(liff.getLineVersion)
+        //
+        function click_LineVersion() {
+          // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
+          document.getElementById('line-version').textContent = liff.getLineVersion();
         }
 
         // アプリ起動時にLIFF初期化関数を実行
