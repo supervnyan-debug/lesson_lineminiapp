@@ -20,7 +20,11 @@
     <div>
       <p>あなたの表示名: <span id="display-name">情報を取得中...</span><button onclick="getLiffProfile()">更新</button></p>
     </div>
-
+    <div>
+      <p>OS: <span id="os"></span><button onclick="click_OS()">更新</button></p>
+    </div>
+    
+    
     <script>
         // ★ あなたのLIFF IDに置き換えてください
         const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; 
@@ -111,6 +115,13 @@
 */
             
             update_status();
+        }
+        
+        //
+        // OS(liff.getOS)
+        //
+        function click_OS() {
+          document.getElementById('display-name').textContent = liff.isLoggedIn()? liff.getOS(): "---";
         }
 
         // アプリ起動時にLIFF初期化関数を実行
