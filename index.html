@@ -13,25 +13,13 @@
 -->
   </head>
   <body>
-    <style>
-      #text-button {
-        display: block;
-        cursor: pointer;
-        width: 160px;
-        text-align: center;
-        border: 1px solid #232323;
-        padding: 10px;
-      }
-    </style>
-    
     <h1>LINE LIFFアプリ デモ</h1>
-    <p>ステータス: <span id="status">初期化中...</span></p>
     <div>
-       <p>あなたの表示名: <span id="display-name">情報を取得中...</span><button onclick="getLiffProfile()">更新</button></p>
+      <p>ステータス: <span id="status">初期化中...</span><button onclick="click_login()">ログイン</button><button onclick="click_logout()">ログアウト</button></p>
     </div>
-    
-    <div id="text-button" onclick="click_login()">LogIn</div>
-    <div id="text-button" onclick="click_logout()">LogOut</div>
+    <div>
+      <p>あなたの表示名: <span id="display-name">情報を取得中...</span><button onclick="getLiffProfile()">更新</button></p>
+    </div>
 
     <script>
         // ★ あなたのLIFF IDに置き換えてください
