@@ -38,7 +38,9 @@
      <div>
       <p>LIFFブラウザの確認(*): <span id="isInClient"></span><button onclick="click_IsInClient()">更新</button></p>
     </div>
-
+     <div>
+      <p>コンテキスト: <span id="context"></span><button onclick="click_Context()">表示</button></p>
+    </div>
 
 
     <!--
@@ -180,6 +182,14 @@
         //
         function click_IsInClient() {
           document.getElementById('isInClient').textContent = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
+        }
+        
+        //
+        // 
+        //
+        function click_Context() {
+          //
+          document.getElementById('context').textContent = JSON.stringify(liff.getContext());
         }
 
         // アプリ起動時にLIFF初期化関数を実行
