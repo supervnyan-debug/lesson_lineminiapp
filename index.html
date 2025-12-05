@@ -65,12 +65,12 @@
          * LIFF初期化処理
          */
         function initializeLiff() {
-           // liff.init
-           //   config [必須]
-           //     .liffid [必須] LIFFアプリID
-           //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
+            // liff.init
+            //   config [必須]
+            //     .liffid [必須] LIFFアプリID
+            //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
             liff.init({
-                liffId: MY_LIFF_ID
+                liffId: MY_LIFF_ID,
                 withLoginOnExternalBrowser: false
             })
             .then(() => {
