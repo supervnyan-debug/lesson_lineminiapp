@@ -47,36 +47,38 @@
     // スクリプト
     -->
     <script>
-        // ★ あなたのLIFF IDに置き換えてください
-        const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; 
+      // ★ あなたのLIFF IDに置き換えてください
+      const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; 
         
-        /*
-          LIFF APIでエラーを返すときは、LiffErrorオブジェクトが返る
-          {
-            code: string エラーコード
-            message: string エラーメッセージ
-            cause: Unknown(含まれないことがある） エラーの原因
-          }
+      /*
+        LIFF APIでエラーを返すときは、LiffErrorオブジェクトが返る
+        {
+          code: string エラーコード
+          message: string エラーメッセージ
+          cause: Unknown(含まれないことがある） エラーの原因
+        }
           
-          https://developers.line.biz/ja/reference/liff/#liff-errors
-        */
+        https://developers.line.biz/ja/reference/liff/#liff-errors
+      */
 
-        /**
-         * LIFF初期化処理
-         */
-        function initializeLiff() {
+      /*
+      *  LIFF初期化処理
+      */
+        function initializeLiff(liffid, allowLogin) {
             // liff.init
             //   config [必須]
             //     .liffid [必須] LIFFアプリID
             //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
             liff.init({
-                liffId: MY_LIFF_ID,
-                withLoginOnExternalBrowser: false
+                liffId: liffid,
+                withLoginOnExternalBrowser: allowLogin
             })
             .then(() => {
-                document.getElementById('status').textContent = '初期化成功';
-                // LIFF初期化が成功したら、次のステップへ
-                checkLoginStatus();
+            if (liff.isLoggedIn()) {
+                document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
+            } else {
+                document.getElementById('status').textContent = '未ログイン';	// withLoginOnExternalBrowserがfalseの時
+                }
             })
             .catch((err) => {
                 document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
@@ -92,8 +94,6 @@
                 document.getElementById('status').textContent = 'ログイン済み';
             } else {
                 document.getElementById('status').textContent = '未ログイン';
-                // 未ログインであれば、ログイン画面へリダイレクト
-                //liff.login();
             }
         }
         
@@ -199,7 +199,7 @@
         }
 
         // アプリ起動時にLIFF初期化関数を実行
-        initializeLiff();
+        initializeLiff(MY_LIFF_ID, true);
     </script>
   </body>
 </html>
