@@ -18,7 +18,7 @@
       <p>ステータス: <span id="status">初期化中...</span><button onclick="click_login()">ログイン</button><button onclick="click_logout()">ログアウト</button></p>
     </div>
     
-     <p>以下の項目で(*)がつくものは、ログインしていなくても利用できる</p>
+     <p>以下の項目で(*)がつくものは、liff.initが完了する前でも利用できる（らしい）</p>
     
     <div>
       <p>あなたの表示名: <span id="display-name"></span><button onclick="click_LiffProfile()">更新</button></p>
@@ -65,8 +65,13 @@
          * LIFF初期化処理
          */
         function initializeLiff() {
+           // liff.init
+           //   config [必須]
+           //     .liffid [必須] LIFFアプリID
+           //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
             liff.init({
                 liffId: MY_LIFF_ID
+                withLoginOnExternalBrowser: false
             })
             .then(() => {
                 document.getElementById('status').textContent = '初期化成功';
@@ -188,9 +193,8 @@
         // 
         //
         function click_Context() {
-          //
+          // 
           document.getElementById('context').textContent = JSON.stringify(liff.getContext(), null, 2);
-          window.alert(JSON.stringify(liff.getContext(), null, 2));
         }
 
         // アプリ起動時にLIFF初期化関数を実行
