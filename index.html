@@ -47,159 +47,156 @@
     // スクリプト
     -->
     <script>
-      // ★ あなたのLIFF IDに置き換えてください
-      const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; 
-        
-      /*
-        LIFF APIでエラーを返すときは、LiffErrorオブジェクトが返る
-        {
-          code: string エラーコード
-          message: string エラーメッセージ
-          cause: Unknown(含まれないことがある） エラーの原因
-        }
+      //
+      // LIFF APIでエラーを返すときは、LiffErrorオブジェクトが返る
+      // {
+      //   code: string エラーコード
+      //   message: string エラーメッセージ
+      //   cause: Unknown(含まれないことがある） エラーの原因
+      // }
           
         https://developers.line.biz/ja/reference/liff/#liff-errors
       */
 
-      /*
-      *  LIFF初期化処理
-      */
+      //
+      // LIFF初期化処理
+      //
         function initializeLiff(liffid, allowLogin) {
-            // liff.init
-            //   config [必須]
-            //     .liffid [必須] LIFFアプリID
-            //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
-            liff.init({
-                liffId: liffid,
-                withLoginOnExternalBrowser: allowLogin
-            })
-            .then(() => {
+          // liff.init
+          //   config [必須]
+          //     .liffid [必須] LIFFアプリID
+          //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
+          liff.init({
+            liffId: liffid,
+            withLoginOnExternalBrowser: allowLogin
+          })
+          .then(() => {
             if (liff.isLoggedIn()) {
-                document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
+              document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
             } else {
-                document.getElementById('status').textContent = '未ログイン';	// withLoginOnExternalBrowserがfalseの時
-                }
-            })
-            .catch((err) => {
-                document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
-                console.error("LIFF Initialization failed", err);
-            });
-        }
-
-        /**
-         * ログイン状態の確認と処理の分岐
-         */
-        function checkLoginStatus() {
-            if (liff.isLoggedIn()) {
-                document.getElementById('status').textContent = 'ログイン済み';
-            } else {
-                document.getElementById('status').textContent = '未ログイン';
+              document.getElementById('status').textContent = '未ログイン';	// withLoginOnExternalBrowserがfalseの時
             }
-        }
-        
-        function update_status() {
-            document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
-            getLiffProfile();
-        }
-        
-        //
-        // ログイン(liff.login)
-        //
-        function click_login() {
-            if (liff.isLoggedIn()) return;
-
-            liff.login();
-            update_status();
-        }
-        
-        //
-        // ログアウト(liff.logout)
-        //
-        function click_logout() {
-            if (!liff.isLoggedIn()) return;
-            
-            liff.logout();
-            
-/*
-            // promiseを使ってlogoutを呼び出しにすると
-            // Uncaught TypeError: can't access property "then", liff.logout() is undefined
-            // が発生する
-            liff.logout()
-            .then(() => {
-                window.location.reload();
-            })
-            .catch((err) => {
-                alert("logout failed.");
-            });
-*/
-            
-            update_status();
+          })
+          .catch((err) => {
+            document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
+            console.error("LIFF Initialization failed", err);
+          });
         }
 
-        //
-        // LIFF プロフィール (liff.getProfile()
-        //
-        function click_LiffProfile() {
-            liff.getProfile()
-            .then(profile => {
-                // プロフィール情報を画面に表示
-                document.getElementById('display-name').textContent = profile.displayName;
-                console.log('Profile fetched:', profile);
-            })
-            .catch((err) => {
-                document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
-                console.error("Error getting profile", err);
-            });
+      //
+      // ログイン状態の確認と処理の分岐
+      //
+      function checkLoginStatus() {
+        if (liff.isLoggedIn()) {
+          document.getElementById('status').textContent = 'ログイン済み';
+        } else {
+          document.getElementById('status').textContent = '未ログイン';
         }
+      }
+      
+      function update_status() {
+        document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
+        getLiffProfile();
+      }
+      
+      //
+      // ログイン(liff.login)
+      //
+      function click_login() {
+        if (liff.isLoggedIn()) return;
+          liff.login();
+          update_status();
+      }
+      
+      //
+      // ログアウト(liff.logout)
+      //
+      function click_logout() {
+        if (!liff.isLoggedIn()) return;
+        iff.logout();
         
-        //
-        // OS(liff.getOS)
-        //
-        function click_OS() {
-          document.getElementById('os').textContent = liff.isLoggedIn()? liff.getOS(): "---";
-        }
-        
-        //
-        // LINEアプリの言語(liff.getOS)
-        //
-        function click_AppLang() {
-          // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
-          document.getElementById('app-language').textContent = liff.getAppLanguage();
-        }
-        
-        //
-        // LIFF SDKのバージョン(liff.getVersion)
-        //
-        function click_SdkVersion() {
-          document.getElementById('sdk-version').textContent = liff.getVersion();
-        }
-        
-        //
-        // LINE のバージョン(liff.getLineVersion)
-        //
-        function click_LineVersion() {
-          // LIFFブラウザでは動くが、外部ブラウザでは空文字列
-          document.getElementById('line-version').textContent = liff.getLineVersion();
-        }
+        /*
+          // promiseを使ってlogoutを呼び出しにすると
+          // Uncaught TypeError: can't access property "then", liff.logout() is undefined
+          // が発生する
+          liff.logout()
+          .then(() => {
+            window.location.reload();
+          })
+          .catch((err) => {
+            alert("logout failed.");
+          });
+        */
+            
+        update_status();
+      }
 
-        //
-        // LIFFブラウザであるかの確認(liff.isInClient)
-        //
-        function click_IsInClient() {
-          // このメソッド使うことで、外部ブラウザで開かれた場合に機能抑制の判断が可能になります。
-          document.getElementById('isInClient').textContent = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
-        }
-        
-        //
+      //
+      // LIFF プロフィール (liff.getProfile()
+      //
+      function click_LiffProfile() {
+        liff.getProfile()
+        .then(profile => {
+          // プロフィール情報を画面に表示
+          document.getElementById('display-name').textContent = profile.displayName;
+          console.log('Profile fetched:', profile);
+        })
+        .catch((err) => {
+          document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
+          console.error("Error getting profile", err);
+        });
+      }
+      
+      //
+      // OS(liff.getOS)
+      //
+      function click_OS() {
+        document.getElementById('os').textContent = liff.isLoggedIn()? liff.getOS(): "---";
+      }
+      
+      //
+      // LINEアプリの言語(liff.getOS)
+      //
+      function click_AppLang() {
+        // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
+        document.getElementById('app-language').textContent = liff.getAppLanguage();
+      }
+      
+      //
+      // LIFF SDKのバージョン(liff.getVersion)
+      //
+      function click_SdkVersion() {
+        document.getElementById('sdk-version').textContent = liff.getVersion();
+      }
+      
+      //
+      // LINE のバージョン(liff.getLineVersion)
+      //
+      function click_LineVersion() {
+        // LIFFブラウザでは動くが、外部ブラウザでは空文字列
+        document.getElementById('line-version').textContent = liff.getLineVersion();
+      }
+      
+      //
+      // LIFFブラウザであるかの確認(liff.isInClient)
+      //
+      function click_IsInClient() {
+        // このメソッド使うことで、外部ブラウザで開かれた場合に機能抑制の判断が可能になります。
+        document.getElementById('isInClient').textContent = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
+      }
+      
+      //
+      // 
+      //
+      function click_Context() {
         // 
-        //
-        function click_Context() {
-          // 
-          document.getElementById('context').textContent = JSON.stringify(liff.getContext(), null, 2);
-        }
-
-        // アプリ起動時にLIFF初期化関数を実行
-        initializeLiff(MY_LIFF_ID, false);
+        document.getElementById('context').textContent = JSON.stringify(liff.getContext(), null, 2);
+      }
+      
+      // アプリ起動時にLIFF初期化関数を実行
+      const MY_LIFF_ID = "2008528173-Q0Ppe5X7"; // あなたのLIFF IDに置き換えてください
+      const autoLogin = false;                  // 画面を開くと同時にログインするかどうか（外部ブラウザのみ影響）
+      initializeLiff(MY_LIFF_ID, autoLogin);
     </script>
   </body>
 </html>
