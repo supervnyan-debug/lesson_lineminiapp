@@ -54,35 +54,35 @@
       //   message: string エラーメッセージ
       //   cause: Unknown(含まれないことがある） エラーの原因
       // }
-          
-        https://developers.line.biz/ja/reference/liff/#liff-errors
-      */
+      // 
+      // https://developers.line.biz/ja/reference/liff/#liff-errors
+      //
 
       //
       // LIFF初期化処理
       //
-        function initializeLiff(liffid, allowLogin) {
-          // liff.init
-          //   config [必須]
-          //     .liffid [必須] LIFFアプリID
-          //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
-          liff.init({
-            liffId: liffid,
-            withLoginOnExternalBrowser: allowLogin
-          })
-          .then(() => {
-            if (liff.isLoggedIn()) {
-              document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
-            } else {
-              document.getElementById('status').textContent = '未ログイン';	// withLoginOnExternalBrowserがfalseの時
-            }
-          })
-          .catch((err) => {
-            document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
-            console.error("LIFF Initialization failed", err);
-          });
-        }
-
+      function initializeLiff(liffid, allowLogin) {
+        // liff.init
+        //   config [必須]
+        //     .liffid [必須] LIFFアプリID
+        //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
+        liff.init({
+          liffId: liffid,
+          withLoginOnExternalBrowser: allowLogin
+        })
+        .then(() => {
+          if (liff.isLoggedIn()) {
+            document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
+          } else {
+            document.getElementById('status').textContent = '未ログイン';	// withLoginOnExternalBrowserがfalseの時
+          }
+        })
+        .catch((err) => {
+          document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
+          console.error("LIFF Initialization failed", err);
+        });
+      }
+      
       //
       // ログイン状態の確認と処理の分岐
       //
