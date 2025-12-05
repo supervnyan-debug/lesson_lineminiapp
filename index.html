@@ -71,7 +71,7 @@
             //     .withLoginOnExternalBrowser 外部ブラウザでのLIFFアプリ初期化時にloginメソッドを自動で実行するかどうか。デフォルト値はfalse。
             liff.init({
                 liffId: MY_LIFF_ID,
-                withLoginOnExternalBrowser: false
+                withLoginOnExternalBrowser: true
             })
             .then(() => {
                 document.getElementById('status').textContent = '初期化成功';
