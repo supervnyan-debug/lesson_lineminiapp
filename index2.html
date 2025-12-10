@@ -39,9 +39,14 @@
       <p>LIFFブラウザの確認(*): <span id="isInClient"></span><button onclick="click_IsInClient()">更新</button></p>
     </div>
      <div>
-      <p>コンテキスト: <textarea id="context" rows="5" cols="100"></textarea><button onclick="click_Context()">表示</button></p>
+      <p>コンテキスト: <textarea id="context" rows="5" cols="100"></textarea><button onclick="click_Context()">更新</button></p>
     </div>
-
+     <div>
+      <p>API()の有効性: <button onclick="click_IsApiAvailable()">更新</button></p>
+      <p style="text-indent: 2ch">shareTargetPicker : <span id="available_shareTargetPicker"></span></p>
+      <p style="text-indent: 2ch">createShortcutOnHomeScreen : <span id="available_createShortcutOnHomeScreen"></span></p>
+      <p style="text-indent: 2ch">multipleLiffTransition : <span id="available_multipleLiffTransition"></span></p>
+    </div>
 
     <!--
     // スクリプト
@@ -189,11 +194,21 @@
       }
       
       //
-      // 
+      // コンテキストの確認（liff.getContext）
       //
       function click_Context() {
-        // 
+        // 取得できるデータは、部分的に別の呼び出しで得る値を使った方が良くなっているので使いどころに注意
         document.getElementById('context').textContent = JSON.stringify(liff.getContext(), null, 2);
+      }
+
+      //
+      // 幾つかのAPIの有効性チェック（liff.isApiAvailable）
+      //
+      function click_IsApiAvailable() {
+        // 取得できるデータは、部分的に別の呼び出しで得る値を使った方が良くなっているので使いどころに注意
+        document.getElementById('available_shareTargetPicker').textContent = liff.isApiAvailable("shareTargetPicker");
+        document.getElementById('available_createShortcutOnHomeScreen').textContent = liff.isApiAvailable("createShortcutOnHomeScreen");
+        document.getElementById('available_multipleLiffTransition').textContent = liff.isApiAvailable("multipleLiffTransition");
       }
       
       // アプリ起動時にLIFF初期化関数を実行
