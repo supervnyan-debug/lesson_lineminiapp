@@ -8,7 +8,12 @@
     <title>Kick Page</title>
   </head>
   <body>
-     <h1>メイン</h1>
+     <h1>各チェネルへの入り口</h1>
+     <p>OS : <span id="os"></div></p>
+     <p>Browser : <span id="browser"></div></p>
+     <br/>
+     
+     <h1>猫缶</h1>
      <a class="deeplink" href="line://app/2008528173-Q0Ppe5X7">[ディープリンク] 猫鯖缶_ログイン</a><br/>
      <a class="liffurl" href="https://liff.line.me/2008528173-Q0Ppe5X7">[LIFF URL] 猫鯖缶_ログイン</a><br/>
      <a class="deeplink" href="line://app/2008538289-PYYp8BDr">[ディープリンク] 猫鯖缶_ミニアプリ(開発者用)</a><br/>
@@ -38,7 +43,13 @@
      
      <script>
        function fitBrowser() {
-         if (!liff.isInClient() && liff.getOS() != "ios")
+         const osType = liff.getOS();
+         const isLiffBrowse = liff.isInClient();
+         
+         document.getElementById('os').innerText = osType;
+         document.getElementById('browser').innerText = osType? "LIFFブラウザ": "それ以外のブラウザ";
+       
+         if (!isLiffBrowse && osType != "ios")
          {
            const dlinks = document.querySelectorAll('a.deeplink');
            dlinks.forEach(link => {
