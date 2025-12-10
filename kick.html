@@ -38,7 +38,7 @@
      
      <script>
        function fitBrowser() {
-         if (!liff.isInClient())
+         if (!liff.isInClient() && liff.getOS() != "ios")
          {
            const dlinks = document.querySelectorAll('a.deeplink');
            dlinks.forEach(link => {
