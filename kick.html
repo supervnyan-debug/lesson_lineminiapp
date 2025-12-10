@@ -47,7 +47,7 @@
          const isLiffBrowse = liff.isInClient();
          
          document.getElementById('os').innerText = osType;
-         document.getElementById('browser').innerText = osType? "LIFFブラウザ": "それ以外のブラウザ";
+         document.getElementById('browser').innerText = isLiffBrowse? "LIFFブラウザ": "それ以外のブラウザ";
        
          if (!isLiffBrowse && osType != "ios")
          {
