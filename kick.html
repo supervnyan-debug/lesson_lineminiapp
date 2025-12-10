@@ -21,15 +21,11 @@
      <a class="deeplink" href="line://app/2008538290-YGmrV9N2">[ディープリンク] 猫鯖缶_ミニアプリ(審査用></a><br/>
      <a class="deeplink" href="line://app/2008538291-G26m3rON">[ディープリンク] 猫鯖缶_ミニアプリ(本番用)</a><br/>
      <br/>
-
+     
      <h1>API確認</h1>
      <a class="deeplink" href="line://app/2008528173-5R3vq0Lm">[ディープリンク] 猫鮒缶_ログイン</a><br/>
      <a class="deeplink" href="line://app/2008650780-KnxwEOea">[ディープリンク] 猫鮒缶_ミニアプリ(API確認)</a><br/><br/>
      <a class="endpoint"  href="https://supervnyan-debug.github.io/lesson_lineminiapp/index2.html">[URL] 猫鮒缶_ミニアプリ(URL)</a><br/>
-     <br/>
-     
-     <h1>API確認(リダイレクト)</h1>
-     <a class="endpoint"  href="https://supervnyan-debug.github.io/lesson_lineminiapp/index3.html">[URL] 猫鮒缶_ミニアプリ_リダイレクト(URL)</a><br/>
      <br/>
      
      <style>
@@ -46,8 +42,8 @@
          const osType = liff.getOS();
          const isLiffBrowse = liff.isInClient();
          
-         document.getElementById('os').innerText = osType;
-         document.getElementById('browser').innerText = isLiffBrowse? "LIFFブラウザ": "それ以外のブラウザ";
+         document.getElementById('os').innerText = osType == "ios"? "ios": "ios以外";
+         document.getElementById('browser').innerText = isLiffBrowse? "LIFFブラウザ": "LIFFブラウザ以外(LINEアプリ以外）";
        
          if (!isLiffBrowse && osType != "ios")
          {
@@ -57,9 +53,6 @@
            });
          }
        }
-       
-       const DeepLinkHost = "";
-       const BaseHost = "https://supervnyan-debug.github.io/lesson_lineminiapp/";
        
        fitBrowser();
      </script>
