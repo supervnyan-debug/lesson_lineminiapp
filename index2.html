@@ -104,9 +104,10 @@
       //
       function click_login() {
         if (liff.isLoggedIn()) return;
-          liff.login({
-            redirectUri: "https://supervnyan-debug.github.io/lesson_lineminiapp/index3.html"
-          });
+          liff.login();
+          //liff.login({
+          //  redirectUri: "https://supervnyan-debug.github.io/lesson_lineminiapp/index3.html"
+          //});
           update_status();
       }
       
