@@ -285,18 +285,7 @@
       // 現在のユーザのIDトークンのペイロード（liff.getDecodedIDToken）
       //
       function click_decodedIDToken() {
-        let decondedIDToken = liff.getDecodedIDToken();
-        document.getElementById('decodedIDTokenJWT').textContent = decondedIDToken;
-        if (decondedIDToken === null || decondedIDToken === undefined)
-        {
-          document.getElementById('decodedIDToken').textContent = "<null>";
-        }
-        else
-        {
-          // IDトークンはJWT
-          let payload  = parseJwt(decondedIDToken);
-          document.getElementById('decodedIDToken').textContent = JSON.stringify(payload, null, 2);
-        }
+        document.getElementById('decodedIDToken').textContent = JSON.stringify(liff.getDecodedIDToken(), null, 2);
       }
       
       // アプリ起動時にLIFF初期化関数を実行
