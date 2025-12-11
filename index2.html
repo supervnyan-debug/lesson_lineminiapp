@@ -47,7 +47,10 @@
       <p style="text-indent: 2ch">createShortcutOnHomeScreen : <span id="available_createShortcutOnHomeScreen"></span></p>
       <p style="text-indent: 2ch">multipleLiffTransition : <span id="available_multipleLiffTransition"></span></p>
     </div>
-
+     <div>
+      <p>アクセストークン: <span id="accessToken"></span><button onclick="click_AccessToken()">更新</button></p>
+    </div>
+    
     <!--
     // スクリプト
     -->
@@ -209,6 +212,13 @@
         document.getElementById('available_shareTargetPicker').textContent = liff.isApiAvailable("shareTargetPicker");
         document.getElementById('available_createShortcutOnHomeScreen').textContent = liff.isApiAvailable("createShortcutOnHomeScreen");
         document.getElementById('available_multipleLiffTransition').textContent = liff.isApiAvailable("multipleLiffTransition");
+      }
+
+      //
+      // 現在のユーザのアクセストークン（liff.getAccessToken）
+      //
+      function click_AccessToken() {
+        document.getElementById('accessToken').textContent = liff.getAccessToken();
       }
       
       // アプリ起動時にLIFF初期化関数を実行
