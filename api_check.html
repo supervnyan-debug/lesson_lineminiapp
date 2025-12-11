@@ -60,6 +60,11 @@
         <p style="text-indent: 4ch"><textarea id="idTokenJWT"></textarea></p>
         <p style="text-indent: 4ch"><textarea id="idToken" rows="5" cols="100"></textarea></p>
       </div>
+       <div>
+        <p>DecodedIDトークン: <button onclick="click_decodedIDToken()">更新</button></p>
+        <p style="text-indent: 4ch"><textarea id="decodedIDTokenJWT"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="decodedIDToken" rows="5" cols="100"></textarea></p>
+      </div>
     </div>
     
     <!--
@@ -273,6 +278,24 @@
           // IDトークンはJWT
           let idtoken = parseJwt(idTokenObj);
           document.getElementById('idToken').textContent = JSON.stringify(idtoken, null, 2);
+        }
+      }
+      
+      //
+      // 現在のユーザのIDトークンのペイロード（liff.getDecodedIDToken）
+      //
+      function click_decodedIDToken() {
+        let decondedIDToken = liff.getDecodedIDToken();
+        document.getElementById('decodedIDTokenJWT').textContent = decondedIDToken;
+        if (decondedIDToken === null || decondedIDToken === undefined)
+        {
+          document.getElementById('decodedIDToken').textContent = "<null>";
+        }
+        else
+        {
+          // IDトークンはJWT
+          let payload  = parseJwt(decondedIDToken);
+          document.getElementById('decodedIDToken').textContent = JSON.stringify(payload, null, 2);
         }
       }
       
