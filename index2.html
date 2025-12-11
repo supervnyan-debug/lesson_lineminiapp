@@ -245,7 +245,7 @@
         }
         else
         {
-          let idtoken = parseJwt(JSON.stringify(idTokenObj));
+          let idtoken = parseJwt(idTokenObj);
           document.getElementById('idToken').textContent = JSON.stringify(idtoken, null, 2);
         }
       }
