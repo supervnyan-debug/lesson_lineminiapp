@@ -58,6 +58,7 @@
        <div>
         <p>IDトークン: <button onclick="click_IDToken()">更新</button></p>
         <p style="text-indent: 4ch"><textarea id="idTokenJWT"></textarea></p>
+        <p style="text-indent: 4ch">ペイロード部分</p>
         <p style="text-indent: 4ch"><textarea id="idToken" rows="5" cols="100"></textarea></p>
       </div>
        <div>
@@ -75,7 +76,7 @@
       
       function parseJwt(token) {
         // header.payload.signatureからpaylpadだけ取得
-        let base64Url = token.split('.')[1];
+        let base64Url = token.split('.')[0];
         
         // '-'を'+'に、'_'を'/'に置き換え
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
