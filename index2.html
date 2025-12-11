@@ -238,7 +238,16 @@
       // 現在のユーザのIDトークン（liff.getIDToken）
       //
       function click_IDToken() {
-        document.getElementById('idToken').textContent = parseJwt(JSON.stringify(liff.getIDToken()));
+        let idTokenObj = liff.getIDToken();
+        if (idTokenObj === null || idTokenObj === undefined)
+        {
+          document.getElementById('idToken').textContent = "<null>";
+        }
+        else
+        {
+          let idtoken = parseJwt(JSON.stringify(idTokenObj));
+          document.getElementById('idToken').textContent = JSON.stringify(idtoken, null, 2);
+        }
       }
       
       // アプリ起動時にLIFF初期化関数を実行
