@@ -63,6 +63,7 @@
        <div>
         <p>DecodedIDトークン: <button onclick="click_decodedIDToken()">更新</button></p>
         <p style="text-indent: 4ch"><textarea id="decodedIDToken" rows="5" cols="100"></textarea></p>
+        <p style="text-indent: 4ch">発行日時 : <span id="decodedIDToken_iat"></span></p>
         <p style="text-indent: 4ch">有効期限 : <span id="decodedIDToken_exp"></span></p>
       </div>
     </div>
@@ -291,9 +292,9 @@
         document.getElementById('decodedIDToken').textContent = JSON.stringify(decodedToken, null, 2);
         
         // 時間は1970年からの経過秒数なのでミリ秒変換が必要
-        let date = new Date(0);
-        date.setTime(date.getTime() + decodedToken.exp * 1000);
-        document.getElementById('decodedIDToken_exp').textContent = date.toString();
+        let date = new Date();
+        document.getElementById('decodedIDToken_iat').textContent = new Date(date.getTime() + decodedToken.iat * 1000).toString();
+        document.getElementById('decodedIDToken_exp').textContent = new Date(date.getTime() + decodedToken.exp * 1000).toString();
       }
       
       // アプリ起動時にLIFF初期化関数を実行
