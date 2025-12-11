@@ -14,50 +14,52 @@
 -->
   </head>
   <body>
-    <h1>LIFF APIの確認画面</h1>
-    <button onclick="window.location.reload();">リロード</button><br/>
-    <div>
-      <p>ステータス: <span id="status">初期化中...</span><button onclick="click_login()">ログイン</button><button onclick="click_logout()">ログアウト</button></p>
-    </div>
-    
-     <p>以下の項目で(*)がつくものは、liff.initが完了する前でも利用できる（らしい）</p>
-    
-    <div>
-      <p>あなたの表示名: <span id="display-name"></span><button onclick="click_LiffProfile()">更新</button></p>
-    </div>
-    <div>
-      <p>OS(*): <span id="os"></span><button onclick="click_OS()">更新</button></p>
-    </div>
-     <div>
-      <p>LINEアプリの言語(*): <span id="app-language"></span><button onclick="click_AppLang()">更新</button></p>
-    </div>
-     <div>
-      <p>LIFF SDKのバージョン(*): <span id="sdk-version"></span><button onclick="click_SdkVersion()">更新</button></p>
-    </div>
-     <div>
-      <p>LINE のバージョン(*): <span id="line-version"></span><button onclick="click_LineVersion()">更新</button></p>
-    </div>
-     <div>
-      <p>LIFFブラウザの確認(*): <span id="isInClient"></span><button onclick="click_IsInClient()">更新</button></p>
-    </div>
-     <div>
-      <p>コンテキスト: <button onclick="click_Context()">更新</button></p>
-      <p style="text-indent: 2ch"><textarea id="context" rows="5" cols="100"></textarea></p>
-    </div>
-     <div>
-      <p>API()の有効性: <button onclick="click_IsApiAvailable()">更新</button></p>
-      <p style="text-indent: 2ch">shareTargetPicker : <span id="available_shareTargetPicker"></span></p>
-      <p style="text-indent: 2ch">createShortcutOnHomeScreen : <span id="available_createShortcutOnHomeScreen"></span></p>
-      <p style="text-indent: 2ch">multipleLiffTransition : <span id="available_multipleLiffTransition"></span></p>
-    </div>
-     <div>
-      <p>アクセストークン: <button onclick="click_AccessToken()">更新</button></p>
-      <p style="text-indent: 2ch"><textarea id="accessToken" rows="5" cols="100"></textarea></p>
-    </div>
-     <div>
-      <p>IDトークン: <button onclick="click_IDToken()">更新</button></p>
-      <p style="text-indent: 2ch"><textarea id="idTokenJWT"></textarea></p>
-      <p style="text-indent: 2ch"><textarea id="idToken" rows="5" cols="100"></textarea></p>
+    <p style="text-indent: 2ch"><button  onclick="window.location.reload();">リロード</button></p>
+    <div style="text-indent: 2ch">
+      <h1>LIFF APIの確認画面</h1>
+      <div>
+        <p>ステータス: <span id="status">初期化中...</span><button onclick="click_login()">ログイン</button><button onclick="click_logout()">ログアウト</button></p>
+      </div>
+      
+       <p>以下の項目で(*)がつくものは、liff.initが完了する前でも利用できる（らしい）</p>
+      
+      <div>
+        <p>あなたの表示名: <span id="display-name"></span><button onclick="click_LiffProfile()">更新</button></p>
+      </div>
+      <div>
+        <p>OS(*): <span id="os"></span><button onclick="click_OS()">更新</button></p>
+      </div>
+       <div>
+        <p>LINEアプリの言語(*): <span id="app-language"></span><button onclick="click_AppLang()">更新</button></p>
+      </div>
+       <div>
+        <p>LIFF SDKのバージョン(*): <span id="sdk-version"></span><button onclick="click_SdkVersion()">更新</button></p>
+      </div>
+       <div>
+        <p>LINE のバージョン(*): <span id="line-version"></span><button onclick="click_LineVersion()">更新</button></p>
+      </div>
+       <div>
+        <p>LIFFブラウザの確認(*): <span id="isInClient"></span><button onclick="click_IsInClient()">更新</button></p>
+      </div>
+       <div>
+        <p>コンテキスト: <button onclick="click_Context()">更新</button></p>
+        <p style="text-indent: 4ch"><textarea id="context" rows="5" cols="100"></textarea></p>
+      </div>
+       <div>
+        <p>API()の有効性: <button onclick="click_IsApiAvailable()">更新</button></p>
+        <p style="text-indent: 4ch">shareTargetPicker : <span id="available_shareTargetPicker"></span></p>
+        <p style="text-indent: 4ch">createShortcutOnHomeScreen : <span id="available_createShortcutOnHomeScreen"></span></p>
+        <p style="text-indent: 4ch">multipleLiffTransition : <span id="available_multipleLiffTransition"></span></p>
+      </div>
+       <div>
+        <p>アクセストークン: <button onclick="click_AccessToken()">更新</button></p>
+        <p style="text-indent: 4ch"><textarea id="accessToken" rows="5" cols="100"></textarea></p>
+      </div>
+       <div>
+        <p>IDトークン: <button onclick="click_IDToken()">更新</button></p>
+        <p style="text-indent: 4ch"><textarea id="idTokenJWT"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="idToken" rows="5" cols="100"></textarea></p>
+      </div>
     </div>
     
     <!--
