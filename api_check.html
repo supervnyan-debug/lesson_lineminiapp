@@ -289,7 +289,11 @@
         // ペイロード部分がエンコードされていないJSONオブジェクトが返ってくる
         let decodedToken = liff.getDecodedIDToken();
         document.getElementById('decodedIDToken').textContent = JSON.stringify(decodedToken, null, 2);
-        document.getElementById('decodedIDToken_exp').textContent = new Date(decodedToken.exp).toString();
+        
+        // 時間は1970年からの経過秒数なのでミリ秒変換が必要
+        let date = new Date(0);
+        date.setTime(date.getTime() + decodedToken.exp * 1000);
+        document.getElementById('decodedIDToken_exp').textContent = date.toString();
       }
       
       // アプリ起動時にLIFF初期化関数を実行
