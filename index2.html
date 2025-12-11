@@ -50,6 +50,9 @@
      <div>
       <p>アクセストークン: <textarea id="accessToken" rows="5" cols="100"></textarea><button onclick="click_AccessToken()">更新</button></p>
     </div>
+     <div>
+      <p>IDトークン: <textarea id="idToken" rows="5" cols="100"></textarea><button onclick="click_IDToken()">更新</button></p>
+    </div>
     
     <!--
     // スクリプト
@@ -219,6 +222,13 @@
       //
       function click_AccessToken() {
         document.getElementById('accessToken').textContent = liff.getAccessToken();
+      }
+      
+      //
+      // 現在のユーザのIDトークン（liff.getIDToken）
+      //
+      function click_IDToken() {
+        document.getElementById('idToken').textContent = JSON.stringify(liff.getIDToken(), null, 2);
       }
       
       // アプリ起動時にLIFF初期化関数を実行
