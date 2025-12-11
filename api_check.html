@@ -292,7 +292,7 @@
         document.getElementById('decodedIDToken').textContent = JSON.stringify(decodedToken, null, 2);
         
         // 時間は1970年からの経過秒数なのでミリ秒変換が必要
-        let date = new Date();
+        let date = new Date(0);
         document.getElementById('decodedIDToken_iat').textContent = new Date(date.getTime() + decodedToken.iat * 1000).toString();
         document.getElementById('decodedIDToken_exp').textContent = new Date(date.getTime() + decodedToken.exp * 1000).toString();
       }
