@@ -62,8 +62,8 @@
       </div>
        <div>
         <p>DecodedIDトークン: <button onclick="click_decodedIDToken()">更新</button></p>
-        <p style="text-indent: 4ch"><textarea id="decodedIDTokenJWT"></textarea></p>
         <p style="text-indent: 4ch"><textarea id="decodedIDToken" rows="5" cols="100"></textarea></p>
+        <p style="text-indent: 4ch">有効期限 : <span id="decodedIDToken_exp"></span></p>
       </div>
     </div>
     
@@ -241,6 +241,7 @@
       // コンテキストの確認（liff.getContext）
       //
       function click_Context() {
+        // エンコードされていないJSONオブジェクトが返ってくる
         // 取得できるデータは、部分的に別の呼び出しで得る値を使った方が良くなっているので使いどころに注意
         document.getElementById('context').textContent = JSON.stringify(liff.getContext(), null, 2);
       }
@@ -285,7 +286,10 @@
       // 現在のユーザのIDトークンのペイロード（liff.getDecodedIDToken）
       //
       function click_decodedIDToken() {
-        document.getElementById('decodedIDToken').textContent = JSON.stringify(liff.getDecodedIDToken(), null, 2);
+        // ペイロード部分がエンコードされていないJSONオブジェクトが返ってくる
+        let decodedToken = liff.getDecodedIDToken();
+        document.getElementById('decodedIDToken').textContent = JSON.stringify(decodedToken, null, 2);
+        document.getElementById('decodedIDToken_exp').textContent = new Date(decodedToken.exp).toString();
       }
       
       // アプリ起動時にLIFF初期化関数を実行
