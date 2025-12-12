@@ -318,7 +318,7 @@
       }
       
       //
-      //
+      // 現在のユーザが権限の付与に同意したスコープ(liff.permission.query)
       //
       function click_permission_query() {
         let items = [ "profile", "chat_message.write", "openid", "email" ];
@@ -326,7 +326,7 @@
         items.map(function(i) {
           liff.permission.query(i)
           .then((permissionStatus) => {
-            message += "{" + i + ":" +  permissionStatus["state"] + "}";
+            message += "{ " + i + " : " +  permissionStatus["state"] + " } ";
             document.getElementById('permission_query').textContent = message;
             return i;
           });
