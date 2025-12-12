@@ -67,6 +67,10 @@
         <p style="text-indent: 4ch">発行日時 : <span id="decodedIDToken_iat"></span></p>
         <p style="text-indent: 4ch">有効期限 : <span id="decodedIDToken_exp"></span></p>
       </div>
+       <div>
+        <p>あなかのスコープ: <button onclick="click_grantedAll()">更新</button></p>
+        <p style="text-indent: 4ch"><textarea id="grantedAll" rows="5" cols="100"></textarea></p>
+      </div>
     </div>
     
     <!--
@@ -296,6 +300,13 @@
         let date = new Date(0);
         document.getElementById('decodedIDToken_iat').textContent = new Date(date.getTime() + decodedToken.iat * 1000).toString();
         document.getElementById('decodedIDToken_exp').textContent = new Date(date.getTime() + decodedToken.exp * 1000).toString();
+      }
+      
+      //
+      // 現在のユーザが権限の付与に同意したスコープの一覧(liff.permission.getGrantedAll)
+      //
+      function click_grantedAll() {
+        document.getElementById('grantedAll').textContent = JSON.stringify(liff.permission.getGrantedAll(), null, 2);
       }
       
       // アプリ起動時にLIFF初期化関数を実行
