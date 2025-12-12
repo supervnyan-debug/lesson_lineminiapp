@@ -346,9 +346,10 @@
           if (permissionStatus.state === "prompt") {
             liff.permission.requestAll();
           }
-        })
-        .catch (err => {
-          alert("アクセス許可の同意済み");
+          else
+          {
+            alert("アクセス許可の同意済み");
+          }
         });
       }
       
