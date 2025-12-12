@@ -24,7 +24,8 @@
        <p>以下の項目で(*)がつくものは、liff.initが完了する前でも利用できる（らしい）</p>
       
       <div>
-        <p>ユーザ名: <span id="display-name"></span><button onclick="click_LiffProfile()">更新</button></p>
+        <p>プロフィール: <button onclick="click_LiffProfile()">更新</button></p>
+        <p style="text-indent: 4ch"><textarea id="profile" rows="5" cols="100"></textarea></p>
       </div>
       <div>
         <p>OS(*): <span id="os"></span><button onclick="click_OS()">更新</button></p>
@@ -195,17 +196,17 @@
       }
 
       //
-      // LIFF プロフィール (liff.getProfile()
+      // プロフィール (liff.getProfile()
       //
       function click_LiffProfile() {
         liff.getProfile()
         .then(profile => {
           // プロフィール情報を画面に表示
-          document.getElementById('display-name').textContent = profile.displayName;
+          document.getElementById('profile').textContent = JSON.stringify(liff.getContext(), null, 2);
           console.log('Profile fetched:', profile);
         })
         .catch((err) => {
-          document.getElementById('display-name').textContent = 'プロフィールの取得に失敗しました';
+          document.getElementById('profile').textContent = 'プロフィールの取得に失敗しました';
           console.error("Error getting profile", err);
         });
       }
@@ -344,6 +345,7 @@
         liff.permission.query("profile")
         .then((permissionStatus) => {
           if (permissionStatus.state === "prompt") {
+            // Promiseなので、アクセス許可済みの場合はrejectされるので注意
             liff.permission.requestAll();
           }
           else
@@ -352,6 +354,10 @@
           }
         });
       }
+      
+      //
+      // 
+      //
       
       // アプリ起動時にLIFF初期化関数を実行
       const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // あなたのLINEログインチャネルのLIFF IDに置き換えてください
