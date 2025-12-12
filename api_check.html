@@ -73,6 +73,9 @@
        <div>
         <p>指定した権限の付与に同意したスコープ: <span id="permission_query"></span><button onclick="click_permission_query()">更新</button></p>
       </div>
+       <div>
+        <p><button onclick="click_permission_requestAll()">同意画面の表示</button></p>
+      </div>
     </div>
     
     <!--
@@ -330,6 +333,22 @@
             document.getElementById('permission_query').textContent = message;
             return i;
           });
+        });
+      }
+      
+      //
+      // 「アクセス許可要求画面」の表示
+      //
+      function click_permission_requestAll() {
+        // アクセス許可がまだないか確認してから画面を表示する
+        liff.permission.query("profile")
+        .then((permissionStatus) => {
+          if (permissionStatus.state === "prompt") {
+            liff.permission.requestAll();
+          }
+        })
+        .catch (err => {
+          alert("アクセス許可の同意済み");
         });
       }
       
