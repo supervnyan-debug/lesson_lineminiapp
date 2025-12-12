@@ -365,6 +365,9 @@
         liff.getFriendship()
         .then((data) => {
           document.getElementById('friendship').textContent = data.friendFlag;
+        })
+        .catch((err) => {
+          document.getElementById('friendship').textContent = err.message;
         });
       }      
       
