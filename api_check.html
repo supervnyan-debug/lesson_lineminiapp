@@ -307,7 +307,7 @@
       //
       function click_grantedAll() {
         let grantedAll = liff.permission.getGrantedAll();
-        document.getElementById('grantedAll').textContent = JSON.stringify(grantedAll, null, 2);
+        document.getElementById('grantedAll').textContent = grantedAll;
       }
       
       // アプリ起動時にLIFF初期化関数を実行
