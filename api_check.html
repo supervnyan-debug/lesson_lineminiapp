@@ -24,7 +24,7 @@
        <p>以下の項目で(*)がつくものは、liff.initが完了する前でも利用できる（らしい）</p>
       
       <div>
-        <p>あなたの表示名: <span id="display-name"></span><button onclick="click_LiffProfile()">更新</button></p>
+        <p>ユーザ名: <span id="display-name"></span><button onclick="click_LiffProfile()">更新</button></p>
       </div>
       <div>
         <p>OS(*): <span id="os"></span><button onclick="click_OS()">更新</button></p>
@@ -68,8 +68,7 @@
         <p style="text-indent: 4ch">有効期限 : <span id="decodedIDToken_exp"></span></p>
       </div>
        <div>
-        <p>あなかのスコープ: <button onclick="click_grantedAll()">更新</button></p>
-        <p style="text-indent: 4ch"><textarea id="grantedAll" rows="5" cols="100"></textarea></p>
+        <p>権限の付与に同意したスコープ: <span id="grantedAll"></span><button onclick="click_grantedAll()">更新</button></p>
       </div>
     </div>
     
