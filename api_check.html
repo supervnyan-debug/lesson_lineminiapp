@@ -306,8 +306,13 @@
       // 現在のユーザが権限の付与に同意したスコープの一覧(liff.permission.getGrantedAll)
       //
       function click_grantedAll() {
-        let grantedAll = liff.permission.getGrantedAll();
-        document.getElementById('grantedAll').textContent = grantedAll;
+        liff.permission.getGrantedAll()
+        .then((scopes) => {
+          document.getElementById('grantedAll').textContent = scopes;
+        })
+        .catch((err) => {
+          document.getElementById('grantedAll').textContent = "grantedAll is failed: " + err.message);
+        };
       }
       
       // アプリ起動時にLIFF初期化関数を実行
