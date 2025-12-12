@@ -68,7 +68,10 @@
         <p style="text-indent: 4ch">有効期限 : <span id="decodedIDToken_exp"></span></p>
       </div>
        <div>
-        <p>権限の付与に同意したスコープ: <span id="grantedAll"></span><button onclick="click_grantedAll()">更新</button></p>
+        <p>権限の付与に同意したスコープ: <span id="permission_grantedAll"></span><button onclick="click_permission_grantedAll()">更新</button></p>
+      </div>
+       <div>
+        <p>指定した権限の付与に同意したスコープ: <span id="permission_query"></span><button onclick="click_permission_query()">更新</button></p>
       </div>
     </div>
     
@@ -304,14 +307,32 @@
       //
       // 現在のユーザが権限の付与に同意したスコープの一覧(liff.permission.getGrantedAll)
       //
-      function click_grantedAll() {
+      function click_permission_grantedAll() {
         liff.permission.getGrantedAll()
         .then((scopes) => {
-          document.getElementById('grantedAll').textContent = scopes;
+          document.getElementById('permission_grantedAll').textContent = scopes;
         })
         .catch((err) => {
-          document.getElementById('grantedAll').textContent = "grantedAll is failed: " + err.message;
+          document.getElementById('permission_grantedAll').textContent = "grantedAll is failed: " + err.message;
         });
+      }
+      
+      //
+      //
+      //
+      function click_permission_query() {
+        let items = [ "profile", "chat_message.write", "openid", "email" ];
+        let result = items.map(function(i) {
+          liff.permission.query(i)
+          .then((ret) => {
+            return i + ":" + ret;
+          })
+          .catch((err) => {
+            return i + ": " + err.message;
+          });
+        });
+        
+        document.getElementById('permission_query').textContent = result;
       }
       
       // アプリ起動時にLIFF初期化関数を実行
