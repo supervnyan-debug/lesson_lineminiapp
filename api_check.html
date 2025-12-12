@@ -77,6 +77,9 @@
        <div>
         <p><button onclick="click_permission_requestAll()">同意画面の表示</button></p>
       </div>
+       <div>
+        <p>LINE公式アカウントの友だち関係: <span id="friendship"></span><button onclick="click_frendship()">更新</button></p>
+      </div>
     </div>
     
     <!--
@@ -338,7 +341,7 @@
       }
       
       //
-      // 「アクセス許可要求画面」の表示
+      // 「アクセス許可要求画面」の表示(liff.permission.requestAll)
       //
       function click_permission_requestAll() {
         // アクセス許可がまだないか確認してから画面を表示する
@@ -356,8 +359,14 @@
       }
       
       //
-      // 
+      // ユーザーとLINE公式アカウントの友だち関係(liff.getFriendship)
       //
+      function click_frendship() {
+        liff.getFriendship()
+        .then((data) => {
+          document.getElementById('friendship').textContent = data.friendFlag;
+        });
+      }      
       
       // アプリ起動時にLIFF初期化関数を実行
       const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // あなたのLINEログインチャネルのLIFF IDに置き換えてください
