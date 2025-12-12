@@ -322,25 +322,15 @@
       //
       function click_permission_query() {
         let items = [ "profile", "chat_message.write", "openid", "email" ];
-        let counter = 0;
-        let result = items.map(function(i) {
+        let message = "";
+        items.map(function(i) {
           liff.permission.query(i)
           .then((permissionStatus) => {
-            let ret = i + ":" + permissionStatus["state"];
-            console.log(ret);
-            ++counter;
-            return ret;
+            message += permissionStatus["state"] + ",";
+            document.getElementById('permission_query').textContent = message;
+            return i;
           });
         });
-        
-        
-        while (counter < 4)
-        {
-          sleep(1);
-        }
-        
-        console.log(result);
-        document.getElementById('permission_query').textContent = result.length;
       }
       
       // アプリ起動時にLIFF初期化関数を実行
