@@ -325,6 +325,9 @@
         let result = items.map(function(i) {
           liff.permission.query(i)
           .then((permissionStatus) => {
+            
+            console.log(permissionStatus);
+            console.log(permissionStatus["state"]);
             return i + ":" + permissionStatus["state"];
           })
           .catch((err) => {
