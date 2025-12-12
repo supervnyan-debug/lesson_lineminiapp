@@ -326,7 +326,7 @@
         items.map(function(i) {
           liff.permission.query(i)
           .then((permissionStatus) => {
-            message += permissionStatus["state"] + ",";
+            message += "{" + i + ":" +  permissionStatus["state"] + "}";
             document.getElementById('permission_query').textContent = message;
             return i;
           });
