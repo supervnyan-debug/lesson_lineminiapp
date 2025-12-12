@@ -306,7 +306,8 @@
       // 現在のユーザが権限の付与に同意したスコープの一覧(liff.permission.getGrantedAll)
       //
       function click_grantedAll() {
-        document.getElementById('grantedAll').textContent = JSON.stringify(liff.permission.getGrantedAll(), null, 2);
+        let grantedAll = liff.permission.getGrantedAll();
+        document.getElementById('grantedAll').textContent = JSON.stringify(grantedAll, null, 2);
       }
       
       // アプリ起動時にLIFF初期化関数を実行
