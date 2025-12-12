@@ -202,7 +202,7 @@
         liff.getProfile()
         .then(profile => {
           // プロフィール情報を画面に表示
-          document.getElementById('profile').textContent = JSON.stringify(liff.getContext(), null, 2);
+          document.getElementById('profile').textContent = JSON.stringify(profile, null, 2);
           console.log('Profile fetched:', profile);
         })
         .catch((err) => {
