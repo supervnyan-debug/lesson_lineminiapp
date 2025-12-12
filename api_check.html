@@ -311,8 +311,8 @@
           document.getElementById('grantedAll').textContent = scopes;
         })
         .catch((err) => {
-          document.getElementById('grantedAll').textContent = "grantedAll is failed: " + err.message);
-        };
+          document.getElementById('grantedAll').textContent = "grantedAll is failed: " + err.message;
+        });
       }
       
       // アプリ起動時にLIFF初期化関数を実行
