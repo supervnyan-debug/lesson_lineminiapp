@@ -325,18 +325,13 @@
         let result = items.map(function(i) {
           liff.permission.query(i)
           .then((permissionStatus) => {
-            
-            console.log(permissionStatus);
-            console.log(permissionStatus["state"]);
-            return i + ":" + permissionStatus["state"];
-          })
-          .catch((err) => {
-            console.log(err.message);
-            return i + ": " + err.message;
+            let ret = i + ":" + permissionStatus["state"];
+            console.log(ret);
+            return ret;
           });
         });
         
-        document.getElementById('permission_query').textContent = result;
+        document.getElementById('permission_query').textContent = result.length;
       }
       
       // アプリ起動時にLIFF初期化関数を実行
