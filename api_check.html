@@ -80,6 +80,13 @@
        <div>
         <p>LINE公式アカウントの友だち関係: <span id="friendship"></span><button onclick="click_frendship()">更新</button></p>
       </div>
+       <div>
+        <p><button onclick="click_openURL()">URLを開く</button></p>
+        <p style="text-indent: 4ch">URL: <textarea id="openURL" rows="5" cols="100">https://line.me</textarea></p>
+      </div>
+       <div>
+        <p><button onclick="click_close()">画面を閉じる</button></p>
+      </div>
     </div>
     
     <!--
@@ -362,6 +369,7 @@
       // ユーザーとLINE公式アカウントの友だち関係(liff.getFriendship)
       //
       function click_frendship() {
+        // LINEログインチャネルがLINE公式アカウントとリンクされていないとrejectされます
         liff.getFriendship()
         .then((data) => {
           document.getElementById('friendship').textContent = data.friendFlag;
@@ -369,7 +377,25 @@
         .catch((err) => {
           document.getElementById('friendship').textContent = err.message;
         });
-      }      
+      }
+      
+      //
+      // 指定したURLのウィンドウを開く(liff.openWindow()
+      //
+      function click_openURL() {
+        let openurl = document.getElementById('openURL').textContent;
+        liff.openWindow({
+          url: openurl,
+          external: true,
+        });
+      }
+      
+      //
+      // 画面を閉じる(liff.closeWindow)
+      //
+      function click_close() {
+        liff.closeWindow();
+      }
       
       // アプリ起動時にLIFF初期化関数を実行
       const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // あなたのLINEログインチャネルのLIFF IDに置き換えてください
