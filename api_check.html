@@ -322,17 +322,19 @@
       //
       function click_permission_query() {
         let items = [ "profile", "chat_message.write", "openid", "email" ];
+        let counter = 0;
         let result = items.map(function(i) {
           liff.permission.query(i)
           .then((permissionStatus) => {
             let ret = i + ":" + permissionStatus["state"];
             console.log(ret);
+            ++counter;
             return ret;
           });
         });
         
         
-        while (result.lenght < 4)
+        while (counter < 4)
         {
           sleep(1);
         }
