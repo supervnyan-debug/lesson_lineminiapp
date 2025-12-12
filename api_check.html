@@ -331,6 +331,12 @@
           });
         });
         
+        
+        while (result.lenght < 4)
+        {
+          sleep(1);
+        }
+        
         console.log(result);
         document.getElementById('permission_query').textContent = result.length;
       }
