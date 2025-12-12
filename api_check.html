@@ -324,8 +324,8 @@
         let items = [ "profile", "chat_message.write", "openid", "email" ];
         let result = items.map(function(i) {
           liff.permission.query(i)
-          .then((ret) => {
-            return i + ":" + ret;
+          .then((permissionStatus) => {
+            return i + ":" + permissionStatus["state"];
           })
           .catch((err) => {
             return i + ": " + err.message;
