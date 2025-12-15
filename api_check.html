@@ -87,6 +87,10 @@
        <div>
         <p><button onclick="click_close()">画面を閉じる</button></p>
       </div>
+       <div>
+        <p>トークルームにメッセージを送信: <button onclick="click_sendMessages()">送信</button></p>
+        <p style="text-indent: 4ch"><textarea id="messageForSendMessages" rows="15" cols="100"></textarea></p>
+      </div>
     </div>
     
     <!--
@@ -395,6 +399,23 @@
       //
       function click_close() {
         liff.closeWindow();
+      }
+      
+      //
+      // トークルームにメッセージを送信する(liff.sendMessages)
+      //
+      function click_sendMessages() {
+        let message = document.getElementById('messageForSendMessages').textContent;
+        liff.sendMessages([{
+          type: "text",
+          text: "Nice me too!",
+        }])
+        .then(() => {
+          alert('successs!');
+        })
+        .catch((err)=>{
+          alert(err.message);
+        });
       }
       
       // アプリ起動時にLIFF初期化関数を実行
