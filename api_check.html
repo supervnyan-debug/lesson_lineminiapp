@@ -124,7 +124,8 @@
         }).join('');
         
         // JSON形式にデコード
-        return decodeURIComponent(url);
+        let json = decodeURIComponent(url);
+        return json;
       }
       
       function parseJwt(token) {
