@@ -479,7 +479,7 @@
       // パーマネントリンクを取得(liff.permanentLink.createUrlBy)
       //
       function click_createUrlBy() {
-        liff.permanentLink.createUrlBy(document.getElementById('current_href').textContent)
+        liff.permanentLink.createUrlBy(document.getElementById('currentHref').textContent)
         .then((permanentLink)=>{
           alert("success");
           document.getElementById('createUrlBy').textContent = permanentLink;
