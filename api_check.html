@@ -58,7 +58,7 @@
       </div>
        <div>
         <p>IDトークン: <button onclick="click_IDToken()">更新</button></p>
-        <p style="text-indent: 4ch"><textarea id="idTokenJWT"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="idTokenJWT" rows="5" cols="80"></textarea></p>
         <p style="text-indent: 4ch">ペイロード部分</p>
         <p style="text-indent: 4ch"><textarea id="idToken" rows="5" cols="80"></textarea></p>
       </div>
@@ -132,7 +132,7 @@
         let ary = token.split('.');
         let header = JSON.parse(parseJwtMember(ary[0]));
         let payload = JSON.parse(parseJwtMember(ary[1]));
-        return { "header" : header, "payload" : payload, "secreat": ary[2] };
+        return { "header" : header, "payload" : payload, "signature(undecoded)": ary[2] };
       }
       
       //
