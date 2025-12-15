@@ -109,10 +109,7 @@
     -->
     <script>
       
-      function parseJwt(token) {
-        // header.payload.signatureからpaylpadだけ取得
-        let base64Url = token.split('.')[0];
-        
+      function parseJwtMember(base64Url) {
         // '-'を'+'に、'_'を'/'に置き換え
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         
@@ -127,10 +124,12 @@
         }).join('');
         
         // JSON形式にデコード
-        let jsonPayload = decodeURIComponent(url);
-        
-        // JSONオブジェクトにパース
-        return JSON.parse(jsonPayload);
+        return decodeURIComponent(url);
+      }
+      
+      function parseJwt(token) {
+        let json = token.split('.').map(parseJwtMember);
+        return JSON.parse(json);
       }
       
       //
