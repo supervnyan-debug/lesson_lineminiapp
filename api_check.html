@@ -433,15 +433,18 @@
         .then(function (res) {
           if (res) {
             // succeeded in sending a message through TargetPicker
-            console.log(`[${res.status}] Message sent!`);
+            //console.log(`[${res.status}] Message sent!`);
+            alert(`[${res.status}] Message sent!`);
           } else {
             // sending message canceled
-            console.log("TargetPicker was closed!");
+            //console.log("TargetPicker was closed!");
+            alert("TargetPicker was closed!");
           }
         })
         .catch(function (error) {
           // something went wrong before sending a message
-          console.log("something wrong happen");
+          //console.log("something wrong happen");
+          alert("something wrong happen");
         });
       }
       
