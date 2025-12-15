@@ -102,6 +102,9 @@
         <p style="text-indent: 4ch">変換元：<textarea id="currentHref" rows="1" cols="80"></textarea></p>
         <p style="text-indent: 4ch">変換先：<textarea id="createUrlBy" rows="1" cols="80"></textarea></p>
       </div>
+       <div>
+        <p><button onclick="click_createShortCutOnHomeScreen()">ホーム画面のショートカットを作る</button></p>
+      </div>
     </div>
     
     <!--
@@ -476,12 +479,10 @@
         });
       }
       
-      
       //
       // パーマネントリンクを取得(liff.permanentLink.createUrlBy)
       //
       function click_createUrlBy() {
-              liff.i18n.setLang("fr");
         liff.permanentLink.createUrlBy(document.getElementById('currentHref').value)
         .then((permanentLink)=>{
           document.getElementById('createUrlBy').value = permanentLink;
@@ -491,12 +492,34 @@
         });
       }
       
+      //
+      // ホーム画面のショートカットを作る(liff.createShortcutOnHomeScreen)
+      //
+      function click_createShortCutOnHomeScreen() {
+        // LIFF URL or パーマネントリンク or LINEミニアプリのエンドポイントURL or LINEミニアプリのエンドポイントURLから始まるURL
+        let targetURL = document.getElementById('currentHref').value;
+        let paramObj = {
+          url: targetURL
+        };
+        liff.createShortcutOnHomeScreen(paramObj)
+        .then(()=>{
+          console.log("show dialog.");
+        })
+        .catch((err)=>{
+          console.log(err.message);
+        });
+      }
+      
       // アプリ起動時にLIFF初期化関数を実行
       const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // あなたのLINEログインチャネルのLIFF IDに置き換えてください
       const autoLogin = false;                  // 画面を開くと同時にログインするかどうか（外部ブラウザのみ影響）
       initializeLiff(MY_LIFF_ID, autoLogin);
       
+      // パーマネントリンクの変換元の初期値を現在のページのURLにしておく
       document.getElementById('currentHref').textContent = window.location.href;
+      
+      // LIFF SDK が表示する文言の言語が指定できるらしいが、影響がわからなかった
+      // liff.i18n.setLang("fr");
     </script>
   </body>
 </html>
