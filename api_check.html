@@ -94,6 +94,9 @@
        <div>
         <p><button onclick="click_shareTargetPicker()">シェアーターゲットピッカーを開く</button></p>
       </div>
+       <div>
+        <p><button onclick="click_scanQR()">QRコードリーダを開く</button></p>
+      </div>
     </div>
     
     <!--
@@ -421,6 +424,9 @@
         });
       }
       
+      //
+      // ターゲットピッカーを表示する(liff.shareTargetPicker)
+      //
       function click_shareTargetPicker() {
         liff.shareTargetPicker(
           [{
@@ -433,18 +439,30 @@
         .then(function (res) {
           if (res) {
             // succeeded in sending a message through TargetPicker
-            //console.log(`[${res.status}] Message sent!`);
-            alert(`[${res.status}] Message sent!`);
+            console.log(`[${res.status}] Message sent!`);
           } else {
             // sending message canceled
-            //console.log("TargetPicker was closed!");
-            alert("TargetPicker was closed!");
+            console.log("TargetPicker was closed!");
           }
         })
         .catch(function (err) {
           // something went wrong before sending a message
-          //console.log("something wrong happen");
           alert("something wrong happen.\n" + err.message);
+        });
+      }
+      
+      function click_scanQR() {
+        //if (!liff.isLoggedIn() || liff.getOS() == "web") {
+        //  alert("ログインしたスマフォでしか使えません");
+        //  return;
+        //}
+        
+        liff.scanCodeV2()
+        .then((result) => {
+          alert(result);
+        })
+        .catch((error) => {
+          alert("error:" + error.message);
         });
       }
       
