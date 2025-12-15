@@ -25,7 +25,7 @@
       
       <div>
         <p>プロフィール: <button onclick="click_LiffProfile()">更新</button></p>
-        <p style="text-indent: 4ch"><textarea id="profile" rows="5" cols="100"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="profile" rows="5" cols="80"></textarea></p>
       </div>
       <div>
         <p>OS(*): <span id="os"></span><button onclick="click_OS()">更新</button></p>
@@ -44,7 +44,7 @@
       </div>
        <div>
         <p>コンテキスト: <button onclick="click_Context()">更新</button></p>
-        <p style="text-indent: 4ch"><textarea id="context" rows="5" cols="100"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="context" rows="5" cols="80"></textarea></p>
       </div>
        <div>
         <p>API()の有効性: <button onclick="click_IsApiAvailable()">更新</button></p>
@@ -54,17 +54,17 @@
       </div>
        <div>
         <p>アクセストークン: <button onclick="click_AccessToken()">更新</button></p>
-        <p style="text-indent: 4ch"><textarea id="accessToken" rows="5" cols="100"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="accessToken" rows="5" cols="80"></textarea></p>
       </div>
        <div>
         <p>IDトークン: <button onclick="click_IDToken()">更新</button></p>
         <p style="text-indent: 4ch"><textarea id="idTokenJWT"></textarea></p>
         <p style="text-indent: 4ch">ペイロード部分</p>
-        <p style="text-indent: 4ch"><textarea id="idToken" rows="5" cols="100"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="idToken" rows="5" cols="80"></textarea></p>
       </div>
        <div>
         <p>DecodedIDトークン: <button onclick="click_decodedIDToken()">更新</button></p>
-        <p style="text-indent: 4ch"><textarea id="decodedIDToken" rows="5" cols="100"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="decodedIDToken" rows="5" cols="80"></textarea></p>
         <p style="text-indent: 4ch">発行日時 : <span id="decodedIDToken_iat"></span></p>
         <p style="text-indent: 4ch">有効期限 : <span id="decodedIDToken_exp"></span></p>
       </div>
@@ -82,14 +82,14 @@
       </div>
        <div>
         <p><button onclick="click_openURL()">URLを開く</button></p>
-        <p style="text-indent: 4ch">URL: <textarea id="openURL" rows="5" cols="100">https://line.me</textarea></p>
+        <p style="text-indent: 4ch">URL: <textarea id="openURL" rows="1" cols="80">https://line.me</textarea></p>
       </div>
        <div>
         <p><button onclick="click_close()">画面を閉じる</button></p>
       </div>
        <div>
         <p>トークルームにメッセージを送信: <button onclick="click_sendMessages()">送信</button></p>
-        <p style="text-indent: 4ch"><textarea id="messageForSendMessages" rows="15" cols="100"></textarea></p>
+        <p style="text-indent: 4ch"><textarea id="messageForSendMessages" rows="15" cols="80"></textarea></p>
       </div>
        <div>
         <p><button onclick="click_shareTargetPicker()">シェアーターゲットピッカーを開く</button></p>
@@ -99,8 +99,8 @@
       </div>
        <div>
         <p>パーマネントリンクを取得: <button onclick="click_createUrlBy()">取得</button></p>
-        <p style="text-indent: 4ch">変換元：<textarea id="currentHref" rows="1" cols="100"></textarea></p>
-        <p style="text-indent: 4ch">変換先：<textarea id="createUrlBy" rows="1" cols="100"></textarea></p>
+        <p style="text-indent: 4ch">変換元：<textarea id="currentHref" rows="1" cols="80"></textarea></p>
+        <p style="text-indent: 4ch">変換先：<textarea id="createUrlBy" rows="1" cols="80"></textarea></p>
       </div>
     </div>
     
@@ -481,12 +481,10 @@
       function click_createUrlBy() {
         liff.permanentLink.createUrlBy(document.getElementById('currentHref').textContent)
         .then((permanentLink)=>{
-          alert("success");
           document.getElementById('createUrlBy').textContent = permanentLink;
         })
         .catch((err)=>{
-          alert("err");
-          document.getElementById('createUrlBy').textContent = err.message;
+          alert("error:" + err.message);
         });
       }
       // アプリ起動時にLIFF初期化関数を実行
