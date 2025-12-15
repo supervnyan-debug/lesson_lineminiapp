@@ -481,9 +481,11 @@
       function click_createUrlBy() {
         liff.permanentLink.createUrlBy(document.getElementById('current_href').textContent)
         .then((permanentLink)=>{
+          alert("success");
           document.getElementById('createUrlBy').textContent = permanentLink;
         })
         .catch((err)=>{
+          alert("err");
           document.getElementById('createUrlBy').textContent = err.message;
         });
       }
