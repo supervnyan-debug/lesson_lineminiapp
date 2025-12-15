@@ -503,10 +503,12 @@
         };
         liff.createShortcutOnHomeScreen(paramObj)
         .then(()=>{
-          console.log("show dialog.");
+          //console.log("show dialog.");
+          alert('show dialog');
         })
         .catch((err)=>{
-          console.log(err.message);
+          //console.log(err.message);
+          alert(err.message);
         });
       }
       
