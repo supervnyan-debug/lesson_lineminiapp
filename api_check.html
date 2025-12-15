@@ -129,8 +129,10 @@
       }
       
       function parseJwt(token) {
-        let json = token.split('.').map(parseJwtMember);
-        return JSON.parse(json);
+        let ary = token.split('.');
+        let header = JSON.parse(parseJwtMember(ary[0]));
+        let payload = JSON.parse(parseJwtMember(ary[1]));
+        return { "header" : header, "payload" : payload, "secreat": ary[2] };
       }
       
       //
