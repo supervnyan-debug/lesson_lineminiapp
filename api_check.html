@@ -97,6 +97,11 @@
        <div>
         <p><button onclick="click_scanQR()">QRコードリーダを開く</button></p>
       </div>
+       <div>
+        <p>パーマネントリンクを取得: <button onclick="click_createUrlBy()">取得</button></p>
+        <p style="text-indent: 4ch">変換元：<textarea id="currentHref" rows="1" cols="100"></textarea></p>
+        <p style="text-indent: 4ch">変換先：<textarea id="createUrlBy" rows="1" cols="100"></textarea></p>
+      </div>
     </div>
     
     <!--
@@ -451,6 +456,9 @@
         });
       }
       
+      //
+      // QRコードリーダを表示(liff.scanCodeV2)
+      //
       function click_scanQR() {
         //if (!liff.isLoggedIn() || liff.getOS() == "web") {
         //  alert("ログイン、かつPC以外でないと使えません");
@@ -466,10 +474,25 @@
         });
       }
       
+      
+      //
+      // パーマネントリンクを取得(liff.permanentLink.createUrlBy)
+      //
+      function click_createUrlBy() {
+        liff.permanentLink.createUrlBy(document.getElementById('current_href').textContent)
+        .then((permanentLink)=>{
+          document.getElementById('createUrlBy').textContent = permanentLink;
+        })
+        .catch((err)=>{
+          document.getElementById('createUrlBy').textContent = err.message;
+        });
+      }
       // アプリ起動時にLIFF初期化関数を実行
       const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // あなたのLINEログインチャネルのLIFF IDに置き換えてください
       const autoLogin = false;                  // 画面を開くと同時にログインするかどうか（外部ブラウザのみ影響）
       initializeLiff(MY_LIFF_ID, autoLogin);
+      
+      document.getElementById('currentHref').textContent = window.location.href;
     </script>
   </body>
 </html>
