@@ -479,9 +479,9 @@
       // パーマネントリンクを取得(liff.permanentLink.createUrlBy)
       //
       function click_createUrlBy() {
-        liff.permanentLink.createUrlBy(document.getElementById('currentHref').textContent)
+        liff.permanentLink.createUrlBy(document.getElementById('currentHref').value)
         .then((permanentLink)=>{
-          document.getElementById('createUrlBy').textContent = permanentLink;
+          document.getElementById('createUrlBy').value = permanentLink;
         })
         .catch((err)=>{
           alert("error:" + err.message);
