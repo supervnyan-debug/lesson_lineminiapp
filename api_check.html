@@ -453,13 +453,13 @@
       
       function click_scanQR() {
         //if (!liff.isLoggedIn() || liff.getOS() == "web") {
-        //  alert("ログインしたスマフォでしか使えません");
+        //  alert("ログイン、かつPC以外でないと使えません");
         //  return;
         //}
         
         liff.scanCodeV2()
         .then((result) => {
-          alert(result);
+          alert(JSON.stringify(result, null, 2););
         })
         .catch((error) => {
           alert("error:" + error.message);
