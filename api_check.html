@@ -497,17 +497,16 @@
       //
       function click_createShortCutOnHomeScreen() {
         // LIFF URL or パーマネントリンク or LINEミニアプリのエンドポイントURL or LINEミニアプリのエンドポイントURLから始まるURL
-        let targetURL = document.getElementById('currentHref').value;
+        //let targetURL = document.getElementById('currentHref').value;
+        let targetURL = document.getElementById('createUrlBy').value;
         let paramObj = {
           url: targetURL
         };
         liff.createShortcutOnHomeScreen(paramObj)
         .then(()=>{
-          //console.log("show dialog.");
           alert('show dialog');
         })
         .catch((err)=>{
-          //console.log(err.message);
           alert(err.message);
         });
       }
@@ -521,7 +520,7 @@
       document.getElementById('currentHref').textContent = window.location.href.split('?')[0];
       
       // LIFF SDK が表示する文言の言語が指定できるらしいが、影響がわからなかった
-      liff.i18n.setLang("fr");
+      //liff.i18n.setLang("fr");
     </script>
   </body>
 </html>
