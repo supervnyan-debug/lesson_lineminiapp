@@ -481,6 +481,7 @@
       // パーマネントリンクを取得(liff.permanentLink.createUrlBy)
       //
       function click_createUrlBy() {
+              liff.i18n.setLang("fr");
         liff.permanentLink.createUrlBy(document.getElementById('currentHref').value)
         .then((permanentLink)=>{
           document.getElementById('createUrlBy').value = permanentLink;
@@ -489,8 +490,6 @@
           alert("error:" + err.message);
         });
       }
-      
-      liff.i18n.setLang("fr");
       
       // アプリ起動時にLIFF初期化関数を実行
       const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // あなたのLINEログインチャネルのLIFF IDに置き換えてください
