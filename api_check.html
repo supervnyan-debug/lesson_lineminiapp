@@ -91,6 +91,9 @@
         <p>トークルームにメッセージを送信: <button onclick="click_sendMessages()">送信</button></p>
         <p style="text-indent: 4ch"><textarea id="messageForSendMessages" rows="15" cols="100"></textarea></p>
       </div>
+       <div>
+        <p><button onclick="click_close()">シェアーターゲットピッカーを開く</button></p>
+      </div>
     </div>
     
     <!--
@@ -414,7 +417,31 @@
           alert('successs!');
         })
         .catch((err)=>{
-          alert(err.message);
+          alert("failed!\n" + err.message);
+        });
+      }
+      
+      function click_shareTargetPicker() {
+        liff.shareTargetPicker(
+          [{
+            type: "text",
+            text: "Hello, World!",
+          },],
+          {
+            isMultiple: true,
+          },)
+        .then(function (res) {
+          if (res) {
+            // succeeded in sending a message through TargetPicker
+            console.log(`[${res.status}] Message sent!`);
+          } else {
+            // sending message canceled
+            console.log("TargetPicker was closed!");
+          }
+        })
+        .catch(function (error) {
+          // something went wrong before sending a message
+          console.log("something wrong happen");
         });
       }
       
