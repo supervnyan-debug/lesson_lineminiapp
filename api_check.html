@@ -441,10 +441,10 @@
             alert("TargetPicker was closed!");
           }
         })
-        .catch(function (error) {
+        .catch(function (err) {
           // something went wrong before sending a message
           //console.log("something wrong happen");
-          alert("something wrong happen");
+          alert("something wrong happen.\n" + err.message);
         });
       }
       
