@@ -170,7 +170,6 @@
           withLoginOnExternalBrowser: allowLogin
         })
         .then(() => {
-          document.getElementById('liffid').textContent = liff.id;
           if (liff.isLoggedIn()) {
             document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
           } else {
@@ -180,6 +179,12 @@
         .catch((err) => {
           document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
           console.error("LIFF Initialization failed", err);
+        });
+        
+        // liff.initの終了を待って、任意の処理を実行するときにreadyプロパティを使う
+        liff.ready
+        .then(() => {
+          document.getElementById('liffid').textContent = liff.id;
         });
       }
       
