@@ -17,6 +17,9 @@
     <p style="text-indent: 2ch"><button  onclick="window.location.reload();">リロード</button></p>
     <div style="text-indent: 2ch">
       <h1>LIFF APIの確認画面</h1>
+       <div>
+        <p>LIFF ID: <span id="liffid"></span></p>
+      </div>
       <div>
         <p>ステータス: <span id="status">初期化中...</span><button onclick="click_login()">ログイン</button><button onclick="click_logout()">ログアウト</button></p>
       </div>
@@ -111,6 +114,22 @@
     // スクリプト
     -->
     <script>
+      //
+      // LIFF APIでエラーを返すときは、LiffErrorオブジェクトが返る
+      // {
+      //   code: string エラーコード
+      //   message: string エラーメッセージ
+      //   cause: Unknown(含まれないことがある） エラーの原因
+      // }
+      // 
+      // https://developers.line.biz/ja/reference/liff/#liff-errors
+      //
+      function alertLiffError(err) {
+        alert(
+          "code: " + err.code + "\n" +
+          "message: " + err.message + "\n" + 
+          "cause: " + err.cause);
+      }
       
       function parseJwtMember(base64Url) {
         // '-'を'+'に、'_'を'/'に置き換え
@@ -137,17 +156,6 @@
         let payload = JSON.parse(parseJwtMember(ary[1]));
         return { "header" : header, "payload" : payload, "signature(undecoded)": ary[2] };
       }
-      
-      //
-      // LIFF APIでエラーを返すときは、LiffErrorオブジェクトが返る
-      // {
-      //   code: string エラーコード
-      //   message: string エラーメッセージ
-      //   cause: Unknown(含まれないことがある） エラーの原因
-      // }
-      // 
-      // https://developers.line.biz/ja/reference/liff/#liff-errors
-      //
 
       //
       // LIFF初期化処理
@@ -162,6 +170,7 @@
           withLoginOnExternalBrowser: allowLogin
         })
         .then(() => {
+          document.getElementById('liffid').textContent = liff.id;
           if (liff.isLoggedIn()) {
             document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
           } else {
@@ -179,14 +188,14 @@
       //
       function checkLoginStatus() {
         if (liff.isLoggedIn()) {
-          document.getElementById('status').textContent = 'ログイン済み';
+          document.getElementById('status').value = 'ログイン済み';
         } else {
-          document.getElementById('status').textContent = '未ログイン';
+          document.getElementById('status').value = '未ログイン';
         }
       }
       
       function update_status() {
-        document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
+        document.getElementById('status').value = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
         getLiffProfile();
       }
       
@@ -218,7 +227,7 @@
             window.location.reload();
           })
           .catch((err) => {
-            alert("logout failed.");
+            alertLiffError("logout failed.");
           });
         */
             
@@ -232,12 +241,13 @@
         liff.getProfile()
         .then(profile => {
           // プロフィール情報を画面に表示
-          document.getElementById('profile').textContent = JSON.stringify(profile, null, 2);
+          document.getElementById('profile').value = JSON.stringify(profile, null, 2);
           console.log('Profile fetched:', profile);
         })
         .catch((err) => {
-          document.getElementById('profile').textContent = 'プロフィールの取得に失敗しました';
+          document.getElementById('profile').value = 'プロフィールの取得に失敗しました';
           console.error("Error getting profile", err);
+          alertLiffError(err);
         });
       }
       
@@ -245,7 +255,7 @@
       // OS(liff.getOS)
       //
       function click_OS() {
-        document.getElementById('os').textContent = liff.isLoggedIn()? liff.getOS(): "---";
+        document.getElementById('os').value = liff.isLoggedIn()? liff.getOS(): "---";
       }
       
       //
@@ -253,14 +263,14 @@
       //
       function click_AppLang() {
         // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
-        document.getElementById('app-language').textContent = liff.getAppLanguage();
+        document.getElementById('app-language').value = liff.getAppLanguage();
       }
       
       //
       // LIFF SDKのバージョン(liff.getVersion)
       //
       function click_SdkVersion() {
-        document.getElementById('sdk-version').textContent = liff.getVersion();
+        document.getElementById('sdk-version').value = liff.getVersion();
       }
       
       //
@@ -268,7 +278,7 @@
       //
       function click_LineVersion() {
         // LIFFブラウザでは動くが、外部ブラウザでは空文字列
-        document.getElementById('line-version').textContent = liff.getLineVersion();
+        document.getElementById('line-version').value = liff.getLineVersion();
       }
       
       //
@@ -276,7 +286,7 @@
       //
       function click_IsInClient() {
         // このメソッド使うことで、外部ブラウザで開かれた場合に機能抑制の判断が可能になります。
-        document.getElementById('isInClient').textContent = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
+        document.getElementById('isInClient').value = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
       }
       
       //
@@ -285,7 +295,7 @@
       function click_Context() {
         // エンコードされていないJSONオブジェクトが返ってくる
         // 取得できるデータは、部分的に別の呼び出しで得る値を使った方が良くなっているので使いどころに注意
-        document.getElementById('context').textContent = JSON.stringify(liff.getContext(), null, 2);
+        document.getElementById('context').value = JSON.stringify(liff.getContext(), null, 2);
       }
 
       //
@@ -293,9 +303,9 @@
       //
       function click_IsApiAvailable() {
         // 取得できるデータは、部分的に別の呼び出しで得る値を使った方が良くなっているので使いどころに注意
-        document.getElementById('available_shareTargetPicker').textContent = liff.isApiAvailable("shareTargetPicker");
-        document.getElementById('available_createShortcutOnHomeScreen').textContent = liff.isApiAvailable("createShortcutOnHomeScreen");
-        document.getElementById('available_multipleLiffTransition').textContent = liff.isApiAvailable("multipleLiffTransition");
+        document.getElementById('available_shareTargetPicker').value = liff.isApiAvailable("shareTargetPicker");
+        document.getElementById('available_createShortcutOnHomeScreen').value = liff.isApiAvailable("createShortcutOnHomeScreen");
+        document.getElementById('available_multipleLiffTransition').value = liff.isApiAvailable("multipleLiffTransition");
       }
 
       //
@@ -303,7 +313,7 @@
       //
       function click_AccessToken() {
         // アクセストークンはJWTではありません
-        document.getElementById('accessToken').textContent = liff.getAccessToken();
+        document.getElementById('accessToken').value = liff.getAccessToken();
       }
       
       //
@@ -311,16 +321,16 @@
       //
       function click_IDToken() {
         let idTokenObj = liff.getIDToken();
-        document.getElementById('idTokenJWT').textContent = idTokenObj;
+        document.getElementById('idTokenJWT').value = idTokenObj;
         if (idTokenObj === null || idTokenObj === undefined)
         {
-          document.getElementById('idToken').textContent = "<null>";
+          document.getElementById('idToken').value = "<null>";
         }
         else
         {
           // IDトークンはJWT
           let idtoken = parseJwt(idTokenObj);
-          document.getElementById('idToken').textContent = JSON.stringify(idtoken, null, 2);
+          document.getElementById('idToken').value = JSON.stringify(idtoken, null, 2);
         }
       }
       
@@ -330,12 +340,12 @@
       function click_decodedIDToken() {
         // ペイロード部分がエンコードされていないJSONオブジェクトが返ってくる
         let decodedToken = liff.getDecodedIDToken();
-        document.getElementById('decodedIDToken').textContent = JSON.stringify(decodedToken, null, 2);
+        document.getElementById('decodedIDToken').value = JSON.stringify(decodedToken, null, 2);
         
         // 時間は1970年からの経過秒数なのでミリ秒変換が必要
         let date = new Date(0);
-        document.getElementById('decodedIDToken_iat').textContent = new Date(date.getTime() + decodedToken.iat * 1000).toString();
-        document.getElementById('decodedIDToken_exp').textContent = new Date(date.getTime() + decodedToken.exp * 1000).toString();
+        document.getElementById('decodedIDToken_iat').value = new Date(date.getTime() + decodedToken.iat * 1000).toString();
+        document.getElementById('decodedIDToken_exp').value = new Date(date.getTime() + decodedToken.exp * 1000).toString();
       }
       
       //
@@ -344,10 +354,10 @@
       function click_permission_grantedAll() {
         liff.permission.getGrantedAll()
         .then((scopes) => {
-          document.getElementById('permission_grantedAll').textContent = scopes;
+          document.getElementById('permission_grantedAll').value = scopes;
         })
         .catch((err) => {
-          document.getElementById('permission_grantedAll').textContent = "grantedAll is failed: " + err.message;
+          document.getElementById('permission_grantedAll').value = "grantedAll is failed: " + err.message;
         });
       }
       
@@ -361,7 +371,7 @@
           liff.permission.query(i)
           .then((permissionStatus) => {
             message += "{ " + i + " : " +  permissionStatus["state"] + " } ";
-            document.getElementById('permission_query').textContent = message;
+            document.getElementById('permission_query').value = message;
             return i;
           });
         });
@@ -392,10 +402,10 @@
         // LINEログインチャネルがLINE公式アカウントとリンクされていないとrejectされます
         liff.getFriendship()
         .then((data) => {
-          document.getElementById('friendship').textContent = data.friendFlag;
+          document.getElementById('friendship').value = data.friendFlag;
         })
         .catch((err) => {
-          document.getElementById('friendship').textContent = err.message;
+          document.getElementById('friendship').value = err.message;
         });
       }
       
@@ -403,7 +413,7 @@
       // 指定したURLのウィンドウを開く(liff.openWindow()
       //
       function click_openURL() {
-        let openurl = document.getElementById('openURL').textContent;
+        let openurl = document.getElementById('openURL').value;
         liff.openWindow({
           url: openurl,
           external: true,
@@ -421,7 +431,7 @@
       // トークルームにメッセージを送信する(liff.sendMessages)
       //
       function click_sendMessages() {
-        let message = document.getElementById('messageForSendMessages').textContent;
+        let message = document.getElementById('messageForSendMessages').value;
         liff.sendMessages([{
           type: "text",
           text: "Nice me too!",
@@ -430,7 +440,7 @@
           alert('successs!');
         })
         .catch((err)=>{
-          alert("failed!\n" + err.message);
+          alertLiffError(err);
         });
       }
       
@@ -457,7 +467,7 @@
         })
         .catch(function (err) {
           // something went wrong before sending a message
-          alert("something wrong happen.\n" + err.message);
+          alertLiffError(err);
         });
       }
       
@@ -475,7 +485,7 @@
           alert(result.value);
         })
         .catch((error) => {
-          alert("error:" + error.message);
+          alertLiffError(error);
         });
       }
       
@@ -488,7 +498,7 @@
           document.getElementById('createUrlBy').value = permanentLink;
         })
         .catch((err)=>{
-          alert("error:" + err.message);
+          alertLiffError(err);
         });
       }
       
@@ -498,7 +508,7 @@
       function click_createShortCutOnHomeScreen() {
         // LIFF URL or パーマネントリンク or LINEミニアプリのエンドポイントURL or LINEミニアプリのエンドポイントURLから始まるURL
         //let targetURL = document.getElementById('currentHref').value;
-        let targetURL = document.getElementById('createUrlBy').value;
+        let targetURL = document.getElementById('createUrlBy').value;	
         let paramObj = {
           url: targetURL
         };
@@ -507,17 +517,17 @@
           alert('show dialog');
         })
         .catch((err)=>{
-          alert(err.message);
+          alertLiffError(err);
         });
       }
       
       // アプリ起動時にLIFF初期化関数を実行
-      const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // あなたのLINEログインチャネルのLIFF IDに置き換えてください
+      const MY_LIFF_ID = "2008528173-5R3vq0Lm"; // ★★ このWebページをエンドポイントとするLINEログインチャネルのLIFF IDに置き換えてください ★★
       const autoLogin = false;                  // 画面を開くと同時にログインするかどうか（外部ブラウザのみ影響）
       initializeLiff(MY_LIFF_ID, autoLogin);
       
       // パーマネントリンクの変換元の初期値を現在のページのURLにしておく
-      document.getElementById('currentHref').textContent = window.location.href.split('?')[0];
+      document.getElementById('currentHref').value = window.location.href.split('?')[0];
       
       // LIFF SDK が表示する文言の言語が指定できるらしいが、影響がわからなかった
       //liff.i18n.setLang("fr");
