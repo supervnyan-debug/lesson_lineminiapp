@@ -170,11 +170,8 @@
           withLoginOnExternalBrowser: allowLogin
         })
         .then(() => {
-          if (liff.isLoggedIn()) {
-            document.getElementById('status').textContent = 'ログイン済み'; // withLoginOnExternalBrowserがtrueの時
-          } else {
-            document.getElementById('status').textContent = '未ログイン';	// withLoginOnExternalBrowserがfalseの時
-          }
+          // withLoginOnExternalBrowserがtrueの時はログイン済み、falseの時は未ログインになる
+          update_status();
         })
         .catch((err) => {
           document.getElementById('status').textContent = `初期化エラー: ${err.code}`;
@@ -190,7 +187,6 @@
       
       function update_status() {
         document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
-        click_LiffProfile();
       }
       
       //
