@@ -188,20 +188,9 @@
         });
       }
       
-      //
-      // ログイン状態の確認と処理の分岐
-      //
-      function checkLoginStatus() {
-        if (liff.isLoggedIn()) {
-          document.getElementById('status').value = 'ログイン済み';
-        } else {
-          document.getElementById('status').value = '未ログイン';
-        }
-      }
-      
       function update_status() {
-        document.getElementById('status').value = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
-        getLiffProfile();
+        document.getElementById('status').textContent = liff.isLoggedIn() ? 'ログイン' : '未ログイン';
+        click_LiffProfile();
       }
       
       //
@@ -260,7 +249,7 @@
       // OS(liff.getOS)
       //
       function click_OS() {
-        document.getElementById('os').value = liff.isLoggedIn()? liff.getOS(): "---";
+        document.getElementById('os').textContent = liff.isLoggedIn()? liff.getOS(): "---";
       }
       
       //
@@ -268,14 +257,14 @@
       //
       function click_AppLang() {
         // liff.getLanguage()は非推奨となり、liff.getAppLanguageを呼ぶそうです。
-        document.getElementById('app-language').value = liff.getAppLanguage();
+        document.getElementById('app-language').textContent = liff.getAppLanguage();
       }
       
       //
       // LIFF SDKのバージョン(liff.getVersion)
       //
       function click_SdkVersion() {
-        document.getElementById('sdk-version').value = liff.getVersion();
+        document.getElementById('sdk-version').textContent = liff.getVersion();
       }
       
       //
@@ -283,7 +272,7 @@
       //
       function click_LineVersion() {
         // LIFFブラウザでは動くが、外部ブラウザでは空文字列
-        document.getElementById('line-version').value = liff.getLineVersion();
+        document.getElementById('line-version').textContent = liff.getLineVersion();
       }
       
       //
@@ -291,7 +280,7 @@
       //
       function click_IsInClient() {
         // このメソッド使うことで、外部ブラウザで開かれた場合に機能抑制の判断が可能になります。
-        document.getElementById('isInClient').value = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
+        document.getElementById('isInClient').textContent = liff.isInClient()? "LIFFブラウザ": "外部ブラウザ or LINE内ブラウザ";
       }
       
       //
@@ -308,9 +297,9 @@
       //
       function click_IsApiAvailable() {
         // 取得できるデータは、部分的に別の呼び出しで得る値を使った方が良くなっているので使いどころに注意
-        document.getElementById('available_shareTargetPicker').value = liff.isApiAvailable("shareTargetPicker");
-        document.getElementById('available_createShortcutOnHomeScreen').value = liff.isApiAvailable("createShortcutOnHomeScreen");
-        document.getElementById('available_multipleLiffTransition').value = liff.isApiAvailable("multipleLiffTransition");
+        document.getElementById('available_shareTargetPicker').textContent = liff.isApiAvailable("shareTargetPicker");
+        document.getElementById('available_createShortcutOnHomeScreen').textContent = liff.isApiAvailable("createShortcutOnHomeScreen");
+        document.getElementById('available_multipleLiffTransition').textContent = liff.isApiAvailable("multipleLiffTransition");
       }
 
       //
@@ -349,8 +338,8 @@
         
         // 時間は1970年からの経過秒数なのでミリ秒変換が必要
         let date = new Date(0);
-        document.getElementById('decodedIDToken_iat').value = new Date(date.getTime() + decodedToken.iat * 1000).toString();
-        document.getElementById('decodedIDToken_exp').value = new Date(date.getTime() + decodedToken.exp * 1000).toString();
+        document.getElementById('decodedIDToken_iat').textContent = new Date(date.getTime() + decodedToken.iat * 1000).toString();
+        document.getElementById('decodedIDToken_exp').textContent = new Date(date.getTime() + decodedToken.exp * 1000).toString();
       }
       
       //
@@ -359,10 +348,10 @@
       function click_permission_grantedAll() {
         liff.permission.getGrantedAll()
         .then((scopes) => {
-          document.getElementById('permission_grantedAll').value = scopes;
+          document.getElementById('permission_grantedAll').textContent = scopes;
         })
         .catch((err) => {
-          document.getElementById('permission_grantedAll').value = "grantedAll is failed: " + err.message;
+          document.getElementById('permission_grantedAll').textContent = "grantedAll is failed: " + err.message;
         });
       }
       
@@ -376,7 +365,7 @@
           liff.permission.query(i)
           .then((permissionStatus) => {
             message += "{ " + i + " : " +  permissionStatus["state"] + " } ";
-            document.getElementById('permission_query').value = message;
+            document.getElementById('permission_query').textContent = message;
             return i;
           });
         });
@@ -407,10 +396,10 @@
         // LINEログインチャネルがLINE公式アカウントとリンクされていないとrejectされます
         liff.getFriendship()
         .then((data) => {
-          document.getElementById('friendship').value = data.friendFlag;
+          document.getElementById('friendship').textContent = data.friendFlag;
         })
         .catch((err) => {
-          document.getElementById('friendship').value = err.message;
+          document.getElementById('friendship').textContent = err.message;
         });
       }
       
