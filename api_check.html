@@ -359,7 +359,7 @@
       //
       function click_login() {
         if (liff.isLoggedIn()) return;
-          liff.login();
+          liff.login({scope: `profile openid email`});
           //liff.login({
           //  redirectUri: "https://supervnyan-debug.github.io/lesson_lineminiapp/index3.html"
           //});
